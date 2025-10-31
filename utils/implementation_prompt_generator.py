@@ -97,7 +97,53 @@ class ImplementationPromptGenerator:
             'cmd': 'コマンドプロンプト (Windows)'
         }
         
-        prompt += f"使用シェル: {shell_names.get(shell_type, 'PowerShell')}\n"
+        prompt += f"使用シェル: {shell_names.get(shell_type, 'PowerShell')}\n\n"
+        
+        # 文字数制限の注意を追加
+        prompt += """---
+
+## ⚠️ 重要: 回答の分割について
+
+**プロンプトが長い場合、以下のルールで回答を分割してください：**
+
+1. **1回の回答は10,000文字以内**に収めてください
+2. 複数ファイルがある場合は、**1～2ファイルずつ**分けて回答してください
+3. 分割する場合は以下の形式で：
+
+**【パート 1/3】**
+```json
+{
+  "files": [
+    {
+      "filename": "file1.py",
+      "filepath": "./models/file1.py",
+      "content": "..."
+    }
+  ]
+}
+```
+
+**【パート 2/3】**
+```json
+{
+  "files": [
+    {
+      "filename": "file2.py",
+      "filepath": "./models/file2.py",
+      "content": "..."
+    }
+  ]
+}
+```
+
+4. **最後のパート**に `dependencies`、`installation_notes`、`test_instructions` を含めてください
+5. 各パートは**独立して実行可能な完全なJSON**として提供してください
+
+---
+
+それでは、上記の依頼内容に基づいてコードを生成してください。
+必要に応じて複数パートに分割してください。
+"""
         
         return prompt
 
@@ -197,6 +243,41 @@ class ImplementationPromptGenerator:
 - 問題がない場合は空の配列 [] を返してください
 - 既存の問題を更新する場合は issue_id を指定してください
 - 新規問題の場合は issue_id を null にしてください
+
+---
+
+## ⚠️ 重要: 回答の分割について
+
+**回答が長くなる場合は、以下のルールで分割してください：**
+
+1. **1回の回答は10,000文字以内**に収めてください
+2. 複数の更新項目がある場合は、**カテゴリごと**に分けて回答してください
+3. 分割する場合は以下の形式で：
+
+**【パート 1/2】**
+```json
+{
+  "deployed_files": [...],
+  "test_results": [...]
+}
+```
+
+**【パート 2/2】**
+```json
+{
+  "bugs": [...],
+  "issue_updates": [...],
+  "code_requests": [...]
+}
+```
+
+4. 各パートは**独立して取り込み可能な完全なJSON**として提供してください
+5. 空の配列は省略せず、必ず含めてください（例: `"bugs": []`）
+
+---
+
+それでは、上記のチェック項目に基づいて確認結果を報告してください。
+必要に応じて複数パートに分割してください。
 """
         
         return prompt
