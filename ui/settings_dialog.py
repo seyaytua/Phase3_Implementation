@@ -80,10 +80,17 @@ class SettingsDialog(QDialog):
         if work_dir:
             self.work_dir_edit.setText(work_dir)
         
-        shell_type = config.get('shell_type', 'PowerShell')
-        index = self.shell_combo.findText(shell_type)
-        if index >= 0:
-            self.shell_combo.setCurrentIndex(index)
+        shell_type = config.get('shell_type', 'powershell')
+        
+        # shell_typeをコンボボックスのインデックスにマッピング
+        shell_mapping = {
+            'powershell': 0,
+            'terminal': 1,
+            'cmd': 2
+        }
+        
+        index = shell_mapping.get(shell_type, 0)
+        self.shell_combo.setCurrentIndex(index)
     
     def browse_directory(self):
         """ディレクトリを選択"""
@@ -99,7 +106,11 @@ class SettingsDialog(QDialog):
     def save_settings(self):
         """設定を保存"""
         work_dir = self.work_dir_edit.text()
-        shell_type = self.shell_combo.currentText()
+        shell_index = self.shell_combo.currentIndex()
+        
+        # インデックスをshell_typeにマッピング
+        shell_types = ['powershell', 'terminal', 'cmd']
+        shell_type = shell_types[shell_index]
         
         if not work_dir:
             from PySide6.QtWidgets import QMessageBox

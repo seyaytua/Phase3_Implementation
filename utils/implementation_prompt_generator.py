@@ -80,61 +80,69 @@ class ImplementationPromptGenerator:
   "installation_notes": "セットアップ手順や注意事項",
   "test_instructions": "動作確認方法"
 }
-重要:
+```
 
-content フィールドには完全なコードを含めてください
-コメントは日本語で記述してください
-エラーハンドリングを含めてください
-型ヒント（typing）を使用してください
-シェル環境
+**重要:**
+- `content` フィールドには完全なコードを含めてください
+- コメントは日本語で記述してください
+- エラーハンドリングを含めてください
+- 型ヒント（typing）を使用してください
+
+**シェル環境:**
 """
+        
+        shell_names = {
+            'powershell': 'PowerShell (Windows)',
+            'terminal': 'Terminal (Mac/Linux)',
+            'cmd': 'コマンドプロンプト (Windows)'
+        }
+        
+        prompt += f"使用シェル: {shell_names.get(shell_type, 'PowerShell')}\n"
+        
+        return prompt
 
-    shell_names = {
-        'powershell': 'PowerShell (Windows)',
-        'terminal': 'Terminal (Mac/Linux)',
-        'cmd': 'コマンドプロンプト (Windows)'
-    }
-    
-    prompt += f"使用シェル: {shell_names.get(shell_type, 'PowerShell')}\n"
-    
-    return prompt
+    @staticmethod
+    def generate_check_prompt(request: Dict, work_dir: str) -> str:
+        """チェック用プロンプトを生成"""
+        
+        prompt = f"""# 実装完了チェック
 
-@staticmethod
-def generate_check_prompt(request: Dict, work_dir: str) -> str:
-    """チェック用プロンプトを生成"""
-    
-    prompt = f"""# 実装完了チェック
-チェック対象
-機能名: {request.get('function_name', '')}
+## チェック対象
+**機能名:** {request.get('function_name', '')}
 
-依頼内容: {request.get('details', '')}
+**依頼内容:** {request.get('details', '')}
 
-作業ディレクトリ: {work_dir}
+**作業ディレクトリ:** {work_dir}
 
-チェック項目
+---
+
+## チェック項目
 以下の項目を確認し、JSON形式で報告してください：
 
-実装状況の確認
+### 1. 実装状況の確認
+- 依頼された機能が実装されているか
+- ファイルが正しい場所に配置されているか
+- コードにエラーがないか
 
-依頼された機能が実装されているか
-ファイルが正しい場所に配置されているか
-コードにエラーがないか
-動作確認
+### 2. 動作確認
+- 正常系のテストが通るか
+- エラーハンドリングが適切か
+- UIが正しく表示されるか
 
-正常系のテストが通るか
-エラーハンドリングが適切か
-UIが正しく表示されるか
-問題の検出
+### 3. 問題の検出
+- 新たなバグや問題が発見されたか
+- 追加で必要な機能はあるか
+- 改善すべき点はあるか
 
-新たなバグや問題が発見されたか
-追加で必要な機能はあるか
-改善すべき点はあるか
-出力形式
+---
+
+## 出力形式
 以下のJSON形式で回答してください：
 
-Copy{
+```json
+{{
   "issue_updates": [
-    {
+    {{
       "issue_id": "ISS001 または null（新規の場合）",
       "action": "update または create",
       "title": "問題タイトル（新規の場合のみ）",
@@ -143,52 +151,52 @@ Copy{
       "new_status": "発見/対応中/解決/再発",
       "notes": "今回の状況説明",
       "resolution": "解決策（解決時のみ）"
-    }
+    }}
   ],
   "code_requests": [
-    {
+    {{
       "function_name": "新たに必要な機能名",
       "details": "詳細な依頼内容",
       "related_issues": ["ISS001"],
       "status": "依頼中"
-    }
+    }}
   ],
   "deployed_files": [
-    {
+    {{
       "filename": "配置したファイル名",
       "filepath": "配置パス",
       "status": "OK/NG/未確認",
       "notes": "動作確認結果"
-    }
+    }}
   ],
   "test_results": [
-    {
+    {{
       "function_name": "テストした機能名",
       "result": "OK/NG",
       "notes": "テスト内容と結果"
-    }
+    }}
   ],
   "bugs": [
-    {
+    {{
       "title": "発見されたバグ",
       "description": "詳細",
       "severity": "低/中/高/致命的",
       "status": "未対応"
-    }
+    }}
   ],
   "ui_ux_notes": [
-    {
+    {{
       "category": "UI/UX/パフォーマンス",
       "content": "改善メモ"
-    }
+    }}
   ]
-}
-注意:
+}}
+```
 
-問題がない場合は空の配列 [] を返してください
-
-既存の問題を更新する場合は issue_id を指定してください
-
-新規問題の場合は issue_id を null にしてください """
-
-  return prompt
+**注意:**
+- 問題がない場合は空の配列 [] を返してください
+- 既存の問題を更新する場合は issue_id を指定してください
+- 新規問題の場合は issue_id を null にしてください
+"""
+        
+        return prompt

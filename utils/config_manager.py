@@ -64,3 +64,12 @@ class ConfigManager:
         """最後に開いたプロジェクトIDを設定"""
         self.config['last_project_id'] = project_id
         self.save_config()
+    
+    def get_config(self) -> Dict:
+        """現在の設定を取得"""
+        return self.config
+    
+    def update_config(self, updates: Dict):
+        """設定を更新"""
+        self.config.update(updates)
+        self.save_config()

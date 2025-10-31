@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
                                QLabel)
 from PySide6.QtCore import Qt
 from datetime import datetime
+from typing import Dict
 from ui.dialogs import RequestDialog
 from utils.implementation_prompt_generator import ImplementationPromptGenerator
 from utils.code_generator import CodeGenerator
