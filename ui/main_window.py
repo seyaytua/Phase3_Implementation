@@ -128,11 +128,18 @@ class MainWindow(QMainWindow):
         """設定ダイアログを開く（新機能）"""
         dialog = SettingsDialog(self)
         if dialog.exec():
+            # 設定を再読み込み（重要！）
+            self.config_manager.config = self.config_manager.load_config()
+            
+            # RequestTabのconfig_managerも同じインスタンスなので自動で反映される
+            # ステータスバーを更新
             self.update_status_bar()
+            
             QMessageBox.information(
                 self,
                 "設定保存完了",
-                "設定が保存されました。"
+                "✅ 設定が保存されました。\n\n"
+                "作業ディレクトリとシェルタイプがすぐに使用可能です。"
             )
     
     def load_projects(self):
