@@ -62,6 +62,8 @@ class RequestTab(QWidget):
         self.main_window = main_window
         self.prompt_gen = ImplementationPromptGenerator()
         self.code_gen = CodeGenerator()
+        # MainWindowのConfigManagerを共有
+        self.config_manager = main_window.config_manager
         self.init_ui()
     
     def init_ui(self):
@@ -173,7 +175,7 @@ class RequestTab(QWidget):
             return
         
         # 作業ディレクトリチェック
-        work_dir = self.main_window.config_manager.get_work_directory()
+        work_dir = self.config_manager.get_work_directory()
         if not work_dir:
             QMessageBox.warning(
                 self,
@@ -184,7 +186,7 @@ class RequestTab(QWidget):
             return
         
         # シェルタイプ取得
-        shell_type = self.main_window.config_manager.get_shell_type()
+        shell_type = self.config_manager.get_shell_type()
         
         # Phase 2データ取得
         phase2_data = self.main_window.current_project.import_info.get('original_data', {})
@@ -208,7 +210,7 @@ class RequestTab(QWidget):
             return
         
         # 作業ディレクトリチェック
-        work_dir = self.main_window.config_manager.get_work_directory()
+        work_dir = self.config_manager.get_work_directory()
         if not work_dir:
             QMessageBox.warning(
                 self,
