@@ -9,6 +9,7 @@ from PySide6.QtCore import Qt
 from datetime import datetime
 from typing import Dict
 from ui.dialogs import RequestDialog
+from ui.code_execution_dialog import CodeExecutionDialog
 from utils.implementation_prompt_generator import ImplementationPromptGenerator
 from utils.code_generator import CodeGenerator
 
@@ -90,6 +91,14 @@ class RequestTab(QWidget):
         button_layout.addWidget(delete_btn)
         
         button_layout.addStretch()
+        
+        # 🚀 JSON実行ボタン（新機能）
+        json_exec_btn = QPushButton("🚀 JSON実行")
+        json_exec_btn.setToolTip("Claude から受け取った JSON からファイル作成コマンドを生成")
+        json_exec_btn.setStyleSheet("background-color: #FF9800; color: white; font-weight: bold; padding: 5px 15px;")
+        json_exec_btn.clicked.connect(self.execute_json)
+        button_layout.addWidget(json_exec_btn)
+        
         layout.addLayout(button_layout)
         
         # テーブル
@@ -321,3 +330,23 @@ class RequestTab(QWidget):
             ]
             self.main_window.save_current_project()
             self.refresh()
+    
+    def execute_json(self):
+        """JSON実行ダイアログを開く（新機能）"""
+        # 作業ディレクトリチェック
+        work_dir = self.config_manager.get_work_directory()
+        if not work_dir:
+            QMessageBox.warning(
+                self,
+                "警告",
+                "作業ディレクトリが設定されていません。\n"
+                "メニューの「設定」から作業ディレクトリを設定してください。"
+            )
+            return
+        
+        # シェルタイプ取得
+        shell_type = self.config_manager.get_shell_type()
+        
+        # ダイアログを開く
+        dialog = CodeExecutionDialog(work_dir, shell_type, self)
+        dialog.exec()

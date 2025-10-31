@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "filename": "user_model.py",
+      "filepath": "./models/user_model.py",
+      "description": "ユーザーデータモデル",
+      "content": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\nユーザーデータモデル\n\"\"\"\nimport json\nimport hashlib\nfrom datetime import datetime\nfrom typing import Dict, Optional\n\nclass User:\n    \"\"\"ユーザークラス\"\"\"\n    \n    def __init__(self, username: str, email: str, password: str):\n        self.user_id = self.generate_id(username)\n        self.username = username\n        self.email = email\n        self.password_hash = self.hash_password(password)\n        self.created_at = datetime.now().isoformat()\n    \n    @staticmethod\n    def generate_id(username: str) -> str:\n        \"\"\"ユーザーIDを生成\"\"\"\n        return hashlib.md5(username.encode()).hexdigest()[:8]\n    \n    @staticmethod\n    def hash_password(password: str) -> str:\n        \"\"\"パスワードをハッシュ化\"\"\"\n        return hashlib.sha256(password.encode()).hexdigest()\n    \n    def to_dict(self) -> Dict:\n        \"\"\"辞書形式に変換\"\"\"\n        return {\n            'user_id': self.user_id,\n            'username': self.username,\n            'email': self.email,\n            'password_hash': self.password_hash,\n            'created_at': self.created_at\n        }\n    \n    @classmethod\n    def from_dict(cls, data: Dict) -> 'User':\n        \"\"\"辞書から復元\"\"\"\n        user = cls.__new__(cls)\n        user.user_id = data['user_id']\n        user.username = data['username']\n        user.email = data['email']\n        user.password_hash = data['password_hash']\n        user.created_at = data['created_at']\n        return user\n\nif __name__ == '__main__':\n    # テスト\n    user = User('testuser', 'test@example.com', 'password123')\n    print(f\"ユーザーID: {user.user_id}\")\n    print(f\"ユーザー名: {user.username}\")\n    print(f\"メール: {user.email}\")\n"
+    },
+    {
+      "filename": "user_manager.py",
+      "filepath": "./utils/user_manager.py",
+      "description": "ユーザー管理クラス",
+      "content": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\nユーザー管理クラス\n\"\"\"\nimport json\nfrom pathlib import Path\nfrom typing import List, Optional, Dict\nfrom models.user_model import User\n\nclass UserManager:\n    \"\"\"ユーザー管理クラス\"\"\"\n    \n    def __init__(self, data_file: str = 'data/users.json'):\n        self.data_file = Path(data_file)\n        self.users = self.load_users()\n    \n    def load_users(self) -> List[User]:\n        \"\"\"ユーザーデータを読み込み\"\"\"\n        if not self.data_file.exists():\n            return []\n        \n        try:\n            with open(self.data_file, 'r', encoding='utf-8') as f:\n                data = json.load(f)\n                return [User.from_dict(u) for u in data]\n        except Exception as e:\n            print(f\"ユーザーデータの読み込みエラー: {e}\")\n            return []\n    \n    def save_users(self):\n        \"\"\"ユーザーデータを保存\"\"\"\n        self.data_file.parent.mkdir(parents=True, exist_ok=True)\n        \n        with open(self.data_file, 'w', encoding='utf-8') as f:\n            data = [u.to_dict() for u in self.users]\n            json.dump(data, f, indent=2, ensure_ascii=False)\n    \n    def add_user(self, username: str, email: str, password: str) -> bool:\n        \"\"\"ユーザーを追加\"\"\"\n        # 重複チェック\n        if self.find_user_by_username(username):\n            return False\n        \n        user = User(username, email, password)\n        self.users.append(user)\n        self.save_users()\n        return True\n    \n    def find_user_by_username(self, username: str) -> Optional[User]:\n        \"\"\"ユーザー名でユーザーを検索\"\"\"\n        for user in self.users:\n            if user.username == username:\n                return user\n        return None\n    \n    def authenticate(self, username: str, password: str) -> bool:\n        \"\"\"認証\"\"\"\n        user = self.find_user_by_username(username)\n        if not user:\n            return False\n        \n        return user.password_hash == User.hash_password(password)\n\nif __name__ == '__main__':\n    # テスト\n    manager = UserManager()\n    print(f\"登録ユーザー数: {len(manager.users)}\")\n"
+    }
+  ],
+  "dependencies": [
+    "import json",
+    "import hashlib",
+    "from datetime import datetime",
+    "from pathlib import Path",
+    "from typing import Dict, List, Optional"
+  ],
+  "installation_notes": "標準ライブラリのみ使用。追加インストール不要。",
+  "test_instructions": "python user_model.py でテスト実行可能"
+}
