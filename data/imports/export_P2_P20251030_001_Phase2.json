@@ -1,0 +1,3761 @@
+{
+  "source": "Phase2_Design",
+  "export_version": "1.0",
+  "exported_at": "2025-10-31 23:46:56",
+  "project": {
+    "project_id": "P2_P20251030_001",
+    "original_phase1_id": "P20251030_001",
+    "project_name": "既存アプリ保守用ツール（4フェーズ構成）",
+    "status": "設計完了",
+    "created_at": "2025-10-31 21:36:31",
+    "updated_at": "2025-10-31 23:46:50",
+    "phase1_data": {
+      "purpose": "既存のアプリ作成ツールで開発されたアプリケーションの保守作業を効率化するためのツール開発。Claudeを活用してアプリコードを解析し、機能分析、モジュール分解提案、設計書作成、修正箇所の明確化を行う。4つのフェーズ（機能分類・洗い出し、各種仕様書作成、コード提供と調整、最終調整）で構成され、特にPhase 1では3つのサブフェーズ（コード解析と機能抽出、機能グルーピングと設計書ドラフト作成、モジュール構成提案）を通じて、一枚ファイル構成と既存分割構成の両ケースに対応。相互関係のグルーピング、依存関係の明確化、重複コードの検出を実現し、単体テストと結合テストの設計も含む。",
+      "confirmed_scope": [
+        {
+          "feature": "Claudeによるアプリコード解析と機能抽出",
+          "priority": "高"
+        },
+        {
+          "feature": "依存関係の把握と可視化",
+          "priority": "高"
+        },
+        {
+          "feature": "重複コードの自動検出",
+          "priority": "高"
+        },
+        {
+          "feature": "類似機能のクラスタリングとグルーピング",
+          "priority": "高"
+        },
+        {
+          "feature": "階層的分類による俯瞰構造の整理",
+          "priority": "高"
+        },
+        {
+          "feature": "適切なモジュール分割の提案",
+          "priority": "高"
+        },
+        {
+          "feature": "各モジュールの役割定義と設計書ドラフト作成",
+          "priority": "高"
+        },
+        {
+          "feature": "既存モジュール間の類似・重複機能検出",
+          "priority": "中"
+        },
+        {
+          "feature": "統合やリファクタリングの提案",
+          "priority": "中"
+        },
+        {
+          "feature": "修正箇所の明確化",
+          "priority": "高"
+        },
+        {
+          "feature": "単体テストと結合テストの設計",
+          "priority": "中"
+        },
+        {
+          "feature": "フェーズごとの最適化プロンプト設計機能",
+          "priority": "高"
+        }
+      ],
+      "excluded_features": [
+        {
+          "feature": "自動コード修正機能",
+          "reason": "Phase 1では解析と提案に特化し、実際のコード修正は後続フェーズまたは人間の判断に委ねる"
+        },
+        {
+          "feature": "リアルタイムコラボレーション機能",
+          "reason": "初期バージョンでは個別作業を前提とし、複数人での同時編集は対象外"
+        },
+        {
+          "feature": "バージョン管理システムとの統合",
+          "reason": "既存のGit等のツールを利用することを前提とし、独自のバージョン管理機能は含めない"
+        },
+        {
+          "feature": "パフォーマンス最適化の自動提案",
+          "reason": "Phase 1では構造的な問題に焦点を当て、パフォーマンス分析は対象外"
+        }
+      ],
+      "main_features": [
+        "Claudeによるアプリコード解析と機能抽出",
+        "依存関係の把握と可視化",
+        "重複コードの自動検出",
+        "類似機能のクラスタリングとグルーピング",
+        "階層的分類による俯瞰構造の整理",
+        "適切なモジュール分割の提案",
+        "各モジュールの役割定義と設計書ドラフト作成",
+        "既存モジュール間の類似・重複機能検出",
+        "統合やリファクタリングの提案",
+        "修正箇所の明確化",
+        "単体テストと結合テストの設計",
+        "フェーズごとの最適化プロンプト設計機能"
+      ],
+      "user_scenarios": "保守チームのメンバーが既存アプリのコードをツールに読み込ませると、Phase 1で自動的にコード解析が開始される。まず、全機能が抽出され、依存関係と重複コードが検出される。次に、類似機能がクラスタリングされ、関係性が可視化される。階層的分類により全体構造が整理され、最適なモジュール構成が提案される。一枚ファイル構成の場合はモジュール分解が提案され、既存分割構成の場合は過剰な細分化や重複の問題が指摘され、統合案が提示される。Phase 2では各種仕様書が作成され、Phase 3でコード提供と調整が行われ、Phase 4で最終調整とテスト設計が完了する。各フェーズで最適化されたプロンプトがAIに送信され、精度の高い出力が得られる。保守チームは明確化された修正箇所とテスト設計に基づいて効率的に作業を進める。",
+      "constraints": [
+        "既存のアプリ作成ツールで作成されたアプリケーションを対象とする",
+        "4フェーズ構成を維持し、既存ツールとの整合性を保つ",
+        "Phase 1は3つのサブフェーズで構成する必要がある",
+        "一枚ファイル構成と既存分割構成の両ケースに対応する",
+        "Claudeの知識カットオフ（2025年1月末）以降の技術情報は含まれない可能性がある",
+        "各フェーズに最適化されたプロンプトを後から設計・実装する必要がある",
+        "保守チームが使いやすいインターフェースを実現する",
+        "充実したドキュメント整備が必須",
+        "単体テストと結合テストの両方を設計に含める"
+      ],
+      "feasibility": "高"
+    },
+    "design_data": {
+      "tech_stack": {
+        "gui_framework": "PySide6 6.10.0",
+        "data_storage": "JSON",
+        "libraries": [
+          "PySide6",
+          "json",
+          "datetime",
+          "pathlib",
+          "os",
+          "sys",
+          "hashlib",
+          "shutil",
+          "re",
+          "typing",
+          "logging",
+          "collections",
+          "itertools",
+          "functools",
+          "uuid",
+          "sqlite3",
+          "ast",
+          "inspect",
+          "enum",
+          "dataclasses",
+          "numpy",
+          "pandas",
+          "matplotlib",
+          "scipy",
+          "scikit-learn",
+          "requests",
+          "httpx",
+          "aiohttp",
+          "networkx",
+          "PyYAML",
+          "tqdm",
+          "jinja2",
+          "markdown",
+          "pygments",
+          "colorama",
+          "rich"
+        ],
+        "selection_reasons": {
+          "PySide6": "Qt6ベースの最新UIフレームワーク。LGPLライセンスで商用利用可能。豊富なウィジェット、優れたドキュメント、クロスプラットフォーム対応。Signal/Slotによる非同期処理に対応し、長時間処理でもUIフリーズを防止可能。",
+          "libraries": "",
+          "JSON": "運用が楽"
+        }
+      },
+      "data_models": [
+        {
+          "model_name": "Project",
+          "description": "プロジェクト全体の情報を管理するモデル",
+          "fields": [
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "プロジェクトの一意識別子"
+            },
+            {
+              "field_name": "project_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-200文字",
+              "description": "プロジェクト名"
+            },
+            {
+              "field_name": "created_at",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "作成日時"
+            },
+            {
+              "field_name": "updated_at",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "最終更新日時"
+            },
+            {
+              "field_name": "source_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "single_file",
+              "validation": "single_file | multi_module",
+              "description": "ソースコードの構成タイプ"
+            },
+            {
+              "field_name": "source_paths",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "有効なファイルパス",
+              "description": "解析対象ファイルのパスリスト"
+            },
+            {
+              "field_name": "current_phase",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "phase1_sub1",
+              "validation": "phase1_sub1 | phase1_sub2 | phase1_sub3 | phase2 | phase3 | phase4",
+              "description": "現在のフェーズ"
+            },
+            {
+              "field_name": "status",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "active",
+              "validation": "active | completed | archived",
+              "description": "プロジェクトステータス"
+            },
+            {
+              "field_name": "metadata",
+              "data_type": "dict",
+              "required": false,
+              "default_value": "{}",
+              "validation": "JSON形式",
+              "description": "追加のメタデータ"
+            }
+          ],
+          "sample_data": "{\"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"project_name\": \"既存アプリ保守プロジェクト\", \"created_at\": \"2025-10-31T10:00:00\", \"updated_at\": \"2025-10-31T15:30:00\", \"source_type\": \"single_file\", \"source_paths\": [\"/path/to/app.py\"], \"current_phase\": \"phase1_sub1\", \"status\": \"active\", \"metadata\": {}}"
+        },
+        {
+          "model_name": "CodeFile",
+          "description": "解析対象のコードファイル情報",
+          "fields": [
+            {
+              "field_name": "file_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "ファイルの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "file_path",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なファイルパス",
+              "description": "ファイルの絶対パス"
+            },
+            {
+              "field_name": "file_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なファイル名",
+              "description": "ファイル名"
+            },
+            {
+              "field_name": "file_hash",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "SHA256ハッシュ",
+              "description": "ファイル内容のハッシュ値"
+            },
+            {
+              "field_name": "file_size",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "ファイルサイズ（バイト）"
+            },
+            {
+              "field_name": "language",
+              "data_type": "string",
+              "required": true,
+              "default_value": "python",
+              "validation": "python | その他",
+              "description": "プログラミング言語"
+            },
+            {
+              "field_name": "encoding",
+              "data_type": "string",
+              "required": true,
+              "default_value": "utf-8",
+              "validation": "有効なエンコーディング",
+              "description": "文字エンコーディング"
+            },
+            {
+              "field_name": "line_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "総行数"
+            },
+            {
+              "field_name": "created_at",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "ファイル作成日時"
+            },
+            {
+              "field_name": "last_modified",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "最終更新日時"
+            },
+            {
+              "field_name": "content",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "ファイル内容"
+            }
+          ],
+          "sample_data": "{\"file_id\": \"660e8400-e29b-41d4-a716-446655440001\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"file_path\": \"/path/to/app.py\", \"file_name\": \"app.py\", \"file_hash\": \"abc123...\", \"file_size\": 15000, \"language\": \"python\", \"encoding\": \"utf-8\", \"line_count\": 500, \"created_at\": \"2025-10-31T10:00:00\", \"last_modified\": \"2025-10-31T10:00:00\", \"content\": \"import os\\n...\"}"
+        },
+        {
+          "model_name": "Function",
+          "description": "抽出された関数情報",
+          "fields": [
+            {
+              "field_name": "function_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "関数の一意識別子"
+            },
+            {
+              "field_name": "file_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属ファイルID"
+            },
+            {
+              "field_name": "name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効な関数名",
+              "description": "関数名"
+            },
+            {
+              "field_name": "signature",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効な関数シグネチャ",
+              "description": "関数シグネチャ"
+            },
+            {
+              "field_name": "start_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "開始行番号"
+            },
+            {
+              "field_name": "end_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> start_line",
+              "description": "終了行番号"
+            },
+            {
+              "field_name": "complexity",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "1",
+              "validation": ">= 1",
+              "description": "循環的複雑度"
+            },
+            {
+              "field_name": "docstring",
+              "data_type": "text",
+              "required": false,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "ドキュメント文字列"
+            },
+            {
+              "field_name": "parameters",
+              "data_type": "list[dict]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "パラメータリスト"
+            },
+            {
+              "field_name": "return_type",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効な型名",
+              "description": "戻り値の型"
+            },
+            {
+              "field_name": "calls",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "呼び出す関数のリスト"
+            },
+            {
+              "field_name": "called_by",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "呼び出される元の関数リスト"
+            },
+            {
+              "field_name": "code_hash",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "SHA256ハッシュ",
+              "description": "関数コードのハッシュ値"
+            },
+            {
+              "field_name": "feature_category",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "カテゴリ名",
+              "description": "機能カテゴリ"
+            },
+            {
+              "field_name": "cluster_id",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "クラスタID",
+              "description": "所属クラスタID"
+            }
+          ],
+          "sample_data": "{\"function_id\": \"770e8400-e29b-41d4-a716-446655440002\", \"file_id\": \"660e8400-e29b-41d4-a716-446655440001\", \"name\": \"process_data\", \"signature\": \"process_data(data: dict) -> list\", \"start_line\": 10, \"end_line\": 25, \"complexity\": 5, \"docstring\": \"データを処理する関数\", \"parameters\": [{\"name\": \"data\", \"type\": \"dict\"}], \"return_type\": \"list\", \"calls\": [\"validate_data\", \"transform_data\"], \"called_by\": [\"main\"], \"code_hash\": \"def123...\", \"feature_category\": \"data_processing\", \"cluster_id\": \"cluster_001\"}"
+        },
+        {
+          "model_name": "ClassDefinition",
+          "description": "抽出されたクラス情報",
+          "fields": [
+            {
+              "field_name": "class_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "クラスの一意識別子"
+            },
+            {
+              "field_name": "file_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属ファイルID"
+            },
+            {
+              "field_name": "name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なクラス名",
+              "description": "クラス名"
+            },
+            {
+              "field_name": "start_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "開始行番号"
+            },
+            {
+              "field_name": "end_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> start_line",
+              "description": "終了行番号"
+            },
+            {
+              "field_name": "base_classes",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "継承元クラスのリスト"
+            },
+            {
+              "field_name": "methods",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "メソッド名のリスト"
+            },
+            {
+              "field_name": "attributes",
+              "data_type": "list[dict]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "属性のリスト"
+            },
+            {
+              "field_name": "docstring",
+              "data_type": "text",
+              "required": false,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "ドキュメント文字列"
+            },
+            {
+              "field_name": "is_abstract",
+              "data_type": "boolean",
+              "required": true,
+              "default_value": "false",
+              "validation": "true | false",
+              "description": "抽象クラスかどうか"
+            },
+            {
+              "field_name": "feature_category",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "カテゴリ名",
+              "description": "機能カテゴリ"
+            },
+            {
+              "field_name": "cluster_id",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "クラスタID",
+              "description": "所属クラスタID"
+            }
+          ],
+          "sample_data": "{\"class_id\": \"880e8400-e29b-41d4-a716-446655440003\", \"file_id\": \"660e8400-e29b-41d4-a716-446655440001\", \"name\": \"DataProcessor\", \"start_line\": 30, \"end_line\": 100, \"base_classes\": [\"BaseProcessor\"], \"methods\": [\"__init__\", \"process\", \"validate\"], \"attributes\": [{\"name\": \"config\", \"type\": \"dict\"}], \"docstring\": \"データ処理クラス\", \"is_abstract\": false, \"feature_category\": \"data_processing\", \"cluster_id\": \"cluster_001\"}"
+        },
+        {
+          "model_name": "ImportStatement",
+          "description": "インポート文の情報",
+          "fields": [
+            {
+              "field_name": "import_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "インポート文の一意識別子"
+            },
+            {
+              "field_name": "file_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属ファイルID"
+            },
+            {
+              "field_name": "module_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なモジュール名",
+              "description": "インポートするモジュール名"
+            },
+            {
+              "field_name": "imported_names",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "インポートする名前のリスト"
+            },
+            {
+              "field_name": "alias",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効なエイリアス名",
+              "description": "エイリアス名"
+            },
+            {
+              "field_name": "is_relative",
+              "data_type": "boolean",
+              "required": true,
+              "default_value": "false",
+              "validation": "true | false",
+              "description": "相対インポートかどうか"
+            },
+            {
+              "field_name": "line_number",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "行番号"
+            }
+          ],
+          "sample_data": "{\"import_id\": \"990e8400-e29b-41d4-a716-446655440004\", \"file_id\": \"660e8400-e29b-41d4-a716-446655440001\", \"module_name\": \"os\", \"imported_names\": [\"path\", \"environ\"], \"alias\": \"\", \"is_relative\": false, \"line_number\": 1}"
+        },
+        {
+          "model_name": "Dependency",
+          "description": "依存関係情報",
+          "fields": [
+            {
+              "field_name": "dependency_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "依存関係の一意識別子"
+            },
+            {
+              "field_name": "source_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式",
+              "description": "依存元のID（関数またはクラス）"
+            },
+            {
+              "field_name": "source_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "function",
+              "validation": "function | class",
+              "description": "依存元のタイプ"
+            },
+            {
+              "field_name": "target_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式",
+              "description": "依存先のID（関数またはクラス）"
+            },
+            {
+              "field_name": "target_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "function",
+              "validation": "function | class",
+              "description": "依存先のタイプ"
+            },
+            {
+              "field_name": "dependency_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "calls",
+              "validation": "calls | inherits | uses | imports",
+              "description": "依存関係のタイプ"
+            },
+            {
+              "field_name": "strength",
+              "data_type": "float",
+              "required": true,
+              "default_value": "1.0",
+              "validation": "0.0 <= x <= 1.0",
+              "description": "依存の強度"
+            },
+            {
+              "field_name": "is_circular",
+              "data_type": "boolean",
+              "required": true,
+              "default_value": "false",
+              "validation": "true | false",
+              "description": "循環依存かどうか"
+            }
+          ],
+          "sample_data": "{\"dependency_id\": \"aa0e8400-e29b-41d4-a716-446655440005\", \"source_id\": \"770e8400-e29b-41d4-a716-446655440002\", \"source_type\": \"function\", \"target_id\": \"770e8400-e29b-41d4-a716-446655440006\", \"target_type\": \"function\", \"dependency_type\": \"calls\", \"strength\": 0.8, \"is_circular\": false}"
+        },
+        {
+          "model_name": "DuplicateCode",
+          "description": "重複コード検出結果",
+          "fields": [
+            {
+              "field_name": "duplicate_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "重複コードの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "group_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "重複グループID"
+            },
+            {
+              "field_name": "file_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属ファイルID"
+            },
+            {
+              "field_name": "start_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "開始行番号"
+            },
+            {
+              "field_name": "end_line",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> start_line",
+              "description": "終了行番号"
+            },
+            {
+              "field_name": "code_snippet",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "重複コードの抜粋"
+            },
+            {
+              "field_name": "code_hash",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "SHA256ハッシュ",
+              "description": "コードのハッシュ値"
+            },
+            {
+              "field_name": "similarity_score",
+              "data_type": "float",
+              "required": true,
+              "default_value": "1.0",
+              "validation": "0.0 <= x <= 1.0",
+              "description": "類似度スコア"
+            },
+            {
+              "field_name": "line_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "行数"
+            },
+            {
+              "field_name": "token_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "トークン数"
+            }
+          ],
+          "sample_data": "{\"duplicate_id\": \"bb0e8400-e29b-41d4-a716-446655440007\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"group_id\": \"cc0e8400-e29b-41d4-a716-446655440008\", \"file_id\": \"660e8400-e29b-41d4-a716-446655440001\", \"start_line\": 50, \"end_line\": 60, \"code_snippet\": \"def validate(data):\\n if not data:\\n return False\\n return True\", \"code_hash\": \"xyz789...\", \"similarity_score\": 0.95, \"line_count\": 10, \"token_count\": 25}"
+        },
+        {
+          "model_name": "FeatureCluster",
+          "description": "類似機能のクラスタリング結果",
+          "fields": [
+            {
+              "field_name": "cluster_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "クラスタの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "cluster_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-100文字",
+              "description": "クラスタ名"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": false,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "クラスタの説明"
+            },
+            {
+              "field_name": "category",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なカテゴリ名",
+              "description": "カテゴリ"
+            },
+            {
+              "field_name": "subcategory",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効なサブカテゴリ名",
+              "description": "サブカテゴリ"
+            },
+            {
+              "field_name": "member_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "メンバー数"
+            },
+            {
+              "field_name": "cohesion_score",
+              "data_type": "float",
+              "required": true,
+              "default_value": "0.0",
+              "validation": "0.0 <= x <= 1.0",
+              "description": "凝集度スコア"
+            },
+            {
+              "field_name": "suggested_module_name",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効なモジュール名",
+              "description": "推奨モジュール名"
+            }
+          ],
+          "sample_data": "{\"cluster_id\": \"dd0e8400-e29b-41d4-a716-446655440009\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"cluster_name\": \"データ処理機能群\", \"description\": \"データの検証、変換、保存に関する機能\", \"category\": \"data_processing\", \"subcategory\": \"validation\", \"member_count\": 15, \"cohesion_score\": 0.85, \"suggested_module_name\": \"data_processor\"}"
+        },
+        {
+          "model_name": "HierarchicalStructure",
+          "description": "階層的分類構造",
+          "fields": [
+            {
+              "field_name": "structure_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "構造ノードの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "level",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "階層レベル（0がルート）"
+            },
+            {
+              "field_name": "parent_id",
+              "data_type": "string (UUID)",
+              "required": false,
+              "default_value": "",
+              "validation": "UUID形式",
+              "description": "親ノードID"
+            },
+            {
+              "field_name": "node_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-100文字",
+              "description": "ノード名"
+            },
+            {
+              "field_name": "node_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "domain",
+              "validation": "domain | subdomain | feature_group | feature",
+              "description": "ノードタイプ"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": false,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "ノードの説明"
+            },
+            {
+              "field_name": "child_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "子ノード数"
+            },
+            {
+              "field_name": "leaf_count",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "リーフノード数"
+            }
+          ],
+          "sample_data": "{\"structure_id\": \"ee0e8400-e29b-41d4-a716-446655440010\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"level\": 0, \"parent_id\": \"\", \"node_name\": \"ビジネスロジック\", \"node_type\": \"domain\", \"description\": \"アプリケーションのビジネスロジック全体\", \"child_count\": 3, \"leaf_count\": 15}"
+        },
+        {
+          "model_name": "ModuleProposal",
+          "description": "モジュール分割提案",
+          "fields": [
+            {
+              "field_name": "proposal_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "提案の一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "module_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なモジュール名",
+              "description": "モジュール名"
+            },
+            {
+              "field_name": "module_path",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なパス",
+              "description": "モジュールパス"
+            },
+            {
+              "field_name": "module_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "feature",
+              "validation": "core | utility | feature | integration | ui",
+              "description": "モジュールタイプ"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "モジュールの説明"
+            },
+            {
+              "field_name": "responsibilities",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "責務のリスト"
+            },
+            {
+              "field_name": "included_functions",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "含まれる関数のリスト"
+            },
+            {
+              "field_name": "included_classes",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "含まれるクラスのリスト"
+            },
+            {
+              "field_name": "dependencies",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "依存するモジュールのリスト"
+            },
+            {
+              "field_name": "dependents",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "依存されるモジュールのリスト"
+            },
+            {
+              "field_name": "estimated_loc",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "推定コード行数"
+            },
+            {
+              "field_name": "priority",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "medium",
+              "validation": "high | medium | low",
+              "description": "優先度"
+            },
+            {
+              "field_name": "rationale",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "提案の根拠"
+            }
+          ],
+          "sample_data": "{\"proposal_id\": \"ff0e8400-e29b-41d4-a716-446655440011\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"module_name\": \"data_processor\", \"module_path\": \"modules/data_processor.py\", \"module_type\": \"feature\", \"description\": \"データ処理モジュール\", \"responsibilities\": [\"データ検証\", \"データ変換\"], \"included_functions\": [\"validate_data\", \"transform_data\"], \"included_classes\": [\"DataProcessor\"], \"dependencies\": [\"utils\"], \"dependents\": [\"main\"], \"estimated_loc\": 200, \"priority\": \"high\", \"rationale\": \"データ処理機能を一箇所に集約することで保守性が向上\"}"
+        },
+        {
+          "model_name": "RefactoringSuggestion",
+          "description": "リファクタリング提案",
+          "fields": [
+            {
+              "field_name": "suggestion_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "提案の一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "suggestion_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "merge_modules",
+              "validation": "merge_modules | split_module | extract_common | remove_duplicate | simplify_dependency",
+              "description": "提案タイプ"
+            },
+            {
+              "field_name": "target_modules",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "対象モジュールのリスト"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "提案の説明"
+            },
+            {
+              "field_name": "rationale",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "提案の根拠"
+            },
+            {
+              "field_name": "expected_benefit",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "期待される効果"
+            },
+            {
+              "field_name": "effort_estimate",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "medium",
+              "validation": "low | medium | high",
+              "description": "工数見積もり"
+            },
+            {
+              "field_name": "risk_level",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "medium",
+              "validation": "low | medium | high",
+              "description": "リスクレベル"
+            },
+            {
+              "field_name": "priority",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "3",
+              "validation": "1 <= x <= 5",
+              "description": "優先度（1が最高）"
+            }
+          ],
+          "sample_data": "{\"suggestion_id\": \"110e8400-e29b-41d4-a716-446655440012\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"suggestion_type\": \"merge_modules\", \"target_modules\": [\"validator1\", \"validator2\"], \"description\": \"2つのバリデーションモジュールを統合\", \"rationale\": \"機能が重複しており、統合することで保守性が向上\", \"expected_benefit\": \"コード量削減、テストの簡素化\", \"effort_estimate\": \"low\", \"risk_level\": \"low\", \"priority\": 2}"
+        },
+        {
+          "model_name": "SpecificationDocument",
+          "description": "各種仕様書",
+          "fields": [
+            {
+              "field_name": "spec_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "仕様書の一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "doc_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "functional_spec",
+              "validation": "functional_spec | technical_spec | interface_spec | data_spec | test_spec",
+              "description": "仕様書タイプ"
+            },
+            {
+              "field_name": "title",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-200文字",
+              "description": "タイトル"
+            },
+            {
+              "field_name": "version",
+              "data_type": "string",
+              "required": true,
+              "default_value": "1.0",
+              "validation": "バージョン形式",
+              "description": "バージョン"
+            },
+            {
+              "field_name": "created_at",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "作成日時"
+            },
+            {
+              "field_name": "updated_at",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "更新日時"
+            },
+            {
+              "field_name": "content",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "Markdown形式",
+              "description": "仕様書本文"
+            },
+            {
+              "field_name": "sections",
+              "data_type": "list[dict]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "セクション構造"
+            },
+            {
+              "field_name": "status",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "draft",
+              "validation": "draft | review | approved",
+              "description": "ステータス"
+            }
+          ],
+          "sample_data": "{\"spec_id\": \"120e8400-e29b-41d4-a716-446655440013\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"doc_type\": \"functional_spec\", \"title\": \"データ処理機能仕様書\", \"version\": \"1.0\", \"created_at\": \"2025-10-31T10:00:00\", \"updated_at\": \"2025-10-31T15:00:00\", \"content\": \"# データ処理機能\\n\\n## 概要\\n...\", \"sections\": [{\"title\": \"概要\", \"level\": 1}], \"status\": \"draft\"}"
+        },
+        {
+          "model_name": "TestDesign",
+          "description": "テスト設計情報",
+          "fields": [
+            {
+              "field_name": "test_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "テストの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "test_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "unit",
+              "validation": "unit | integration",
+              "description": "テストタイプ"
+            },
+            {
+              "field_name": "target_module",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なモジュール名",
+              "description": "対象モジュール"
+            },
+            {
+              "field_name": "target_function",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効な関数名",
+              "description": "対象関数"
+            },
+            {
+              "field_name": "test_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-200文字",
+              "description": "テスト名"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "テストの説明"
+            },
+            {
+              "field_name": "preconditions",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "前提条件のリスト"
+            },
+            {
+              "field_name": "test_steps",
+              "data_type": "list[dict]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "テストステップのリスト"
+            },
+            {
+              "field_name": "expected_result",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "期待結果"
+            },
+            {
+              "field_name": "test_data",
+              "data_type": "dict",
+              "required": true,
+              "default_value": "{}",
+              "validation": "JSON形式",
+              "description": "テストデータ"
+            },
+            {
+              "field_name": "priority",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "medium",
+              "validation": "high | medium | low",
+              "description": "優先度"
+            },
+            {
+              "field_name": "status",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "planned",
+              "validation": "planned | implemented | passed | failed",
+              "description": "ステータス"
+            }
+          ],
+          "sample_data": "{\"test_id\": \"130e8400-e29b-41d4-a716-446655440014\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"test_type\": \"unit\", \"target_module\": \"data_processor\", \"target_function\": \"validate_data\", \"test_name\": \"test_validate_data_valid_input\", \"description\": \"正常なデータでバリデーションが成功することを確認\", \"preconditions\": [\"テストデータが用意されている\"], \"test_steps\": [{\"step\": 1, \"action\": \"validate_data関数を呼び出す\", \"input\": \"{\\\"key\\\": \\\"value\\\"}\", \"expected\": \"True\"}], \"expected_result\": \"Trueが返される\", \"test_data\": {\"input\": {\"key\": \"value\"}}, \"priority\": \"high\", \"status\": \"planned\"}"
+        },
+        {
+          "model_name": "PromptTemplate",
+          "description": "フェーズ別最適化プロンプトテンプレート",
+          "fields": [
+            {
+              "field_name": "template_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "テンプレートの一意識別子"
+            },
+            {
+              "field_name": "phase",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なフェーズ名",
+              "description": "対象フェーズ"
+            },
+            {
+              "field_name": "subphase",
+              "data_type": "string",
+              "required": false,
+              "default_value": "",
+              "validation": "有効なサブフェーズ名",
+              "description": "対象サブフェーズ"
+            },
+            {
+              "field_name": "template_name",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "1-100文字",
+              "description": "テンプレート名"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "テンプレートの説明"
+            },
+            {
+              "field_name": "prompt_text",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "プロンプト本文"
+            },
+            {
+              "field_name": "variables",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "変数名のリスト"
+            },
+            {
+              "field_name": "expected_output_format",
+              "data_type": "string",
+              "required": true,
+              "default_value": "json",
+              "validation": "json | markdown | text",
+              "description": "期待される出力形式"
+            },
+            {
+              "field_name": "max_tokens",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "4000",
+              "validation": "> 0",
+              "description": "最大トークン数"
+            },
+            {
+              "field_name": "temperature",
+              "data_type": "float",
+              "required": true,
+              "default_value": "0.7",
+              "validation": "0.0 <= x <= 1.0",
+              "description": "温度パラメータ"
+            },
+            {
+              "field_name": "version",
+              "data_type": "string",
+              "required": true,
+              "default_value": "1.0",
+              "validation": "バージョン形式",
+              "description": "バージョン"
+            },
+            {
+              "field_name": "is_active",
+              "data_type": "boolean",
+              "required": true,
+              "default_value": "true",
+              "validation": "true | false",
+              "description": "アクティブかどうか"
+            }
+          ],
+          "sample_data": "{\"template_id\": \"140e8400-e29b-41d4-a716-446655440015\", \"phase\": \"phase1_sub1\", \"subphase\": \"code_analysis\", \"template_name\": \"コード解析プロンプト\", \"description\": \"Pythonコードを解析して関数とクラスを抽出\", \"prompt_text\": \"以下のPythonコードを解析してください。\\n\\n{{code}}\\n\\n抽出してください：\\n1. 関数のリスト\\n2. クラスのリスト\\n3. インポート文\\n\\nJSON形式で出力してください。\", \"variables\": [\"code\"], \"expected_output_format\": \"json\", \"max_tokens\": 4000, \"temperature\": 0.7, \"version\": \"1.0\", \"is_active\": true}"
+        },
+        {
+          "model_name": "AIInteractionLog",
+          "description": "AI連携ログ",
+          "fields": [
+            {
+              "field_name": "log_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "ログの一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "timestamp",
+              "data_type": "datetime",
+              "required": true,
+              "default_value": "datetime.now()",
+              "validation": "ISO8601形式",
+              "description": "タイムスタンプ"
+            },
+            {
+              "field_name": "phase",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なフェーズ名",
+              "description": "実行フェーズ"
+            },
+            {
+              "field_name": "prompt_template_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "使用したプロンプトテンプレートID"
+            },
+            {
+              "field_name": "prompt_sent",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "送信したプロンプト"
+            },
+            {
+              "field_name": "response_received",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "受信したレスポンス"
+            },
+            {
+              "field_name": "tokens_used",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": ">= 0",
+              "description": "使用トークン数"
+            },
+            {
+              "field_name": "processing_time",
+              "data_type": "float",
+              "required": true,
+              "default_value": "0.0",
+              "validation": ">= 0.0",
+              "description": "処理時間（秒）"
+            },
+            {
+              "field_name": "status",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "success",
+              "validation": "success | error | timeout",
+              "description": "ステータス"
+            },
+            {
+              "field_name": "error_message",
+              "data_type": "text",
+              "required": false,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "エラーメッセージ"
+            }
+          ],
+          "sample_data": "{\"log_id\": \"150e8400-e29b-41d4-a716-446655440016\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"timestamp\": \"2025-10-31T10:30:00\", \"phase\": \"phase1_sub1\", \"prompt_template_id\": \"140e8400-e29b-41d4-a716-446655440015\", \"prompt_sent\": \"以下のPythonコードを解析してください...\", \"response_received\": \"{\\\"functions\\\": [...], \\\"classes\\\": [...]}\", \"tokens_used\": 1500, \"processing_time\": 2.5, \"status\": \"success\", \"error_message\": \"\"}"
+        },
+        {
+          "model_name": "ModificationPoint",
+          "description": "明確化された修正箇所",
+          "fields": [
+            {
+              "field_name": "point_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "uuid.uuid4()",
+              "validation": "UUID形式",
+              "description": "修正箇所の一意識別子"
+            },
+            {
+              "field_name": "project_id",
+              "data_type": "string (UUID)",
+              "required": true,
+              "default_value": "",
+              "validation": "UUID形式、外部キー",
+              "description": "所属プロジェクトID"
+            },
+            {
+              "field_name": "file_path",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "有効なファイルパス",
+              "description": "ファイルパス"
+            },
+            {
+              "field_name": "line_start",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> 0",
+              "description": "開始行番号"
+            },
+            {
+              "field_name": "line_end",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "0",
+              "validation": "> line_start",
+              "description": "終了行番号"
+            },
+            {
+              "field_name": "modification_type",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "refactor",
+              "validation": "refactor | merge | split | remove | add",
+              "description": "修正タイプ"
+            },
+            {
+              "field_name": "description",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "修正内容の説明"
+            },
+            {
+              "field_name": "reason",
+              "data_type": "text",
+              "required": true,
+              "default_value": "",
+              "validation": "テキスト",
+              "description": "修正理由"
+            },
+            {
+              "field_name": "related_modules",
+              "data_type": "list[string]",
+              "required": true,
+              "default_value": "[]",
+              "validation": "JSON配列",
+              "description": "関連モジュールのリスト"
+            },
+            {
+              "field_name": "impact_level",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "medium",
+              "validation": "low | medium | high",
+              "description": "影響度"
+            },
+            {
+              "field_name": "estimated_effort",
+              "data_type": "string",
+              "required": true,
+              "default_value": "",
+              "validation": "工数表記",
+              "description": "推定工数"
+            },
+            {
+              "field_name": "priority",
+              "data_type": "integer",
+              "required": true,
+              "default_value": "3",
+              "validation": "1 <= x <= 5",
+              "description": "優先度（1が最高）"
+            },
+            {
+              "field_name": "status",
+              "data_type": "enum",
+              "required": true,
+              "default_value": "pending",
+              "validation": "pending | in_progress | completed",
+              "description": "ステータス"
+            }
+          ],
+          "sample_data": "{\"point_id\": \"160e8400-e29b-41d4-a716-446655440017\", \"project_id\": \"550e8400-e29b-41d4-a716-446655440000\", \"file_path\": \"/path/to/app.py\", \"line_start\": 100, \"line_end\": 150, \"modification_type\": \"refactor\", \"description\": \"データ処理ロジックをdata_processorモジュールに移動\", \"reason\": \"関心の分離と保守性向上\", \"related_modules\": [\"data_processor\", \"main\"], \"impact_level\": \"medium\", \"estimated_effort\": \"2時間\", \"priority\": 2, \"status\": \"pending\"}"
+        }
+      ],
+      "screens": [
+        {
+          "screen_id": "SCR001",
+          "screen_name": "メインウィンドウ",
+          "screen_type": "Window",
+          "description": "アプリケーション全体を統括するメインウィンドウ。プロジェクト管理、フェーズ遷移、各種機能へのアクセスを提供",
+          "ui_elements": [
+            {
+              "element_type": "QMenuBar",
+              "element_name": "menu_bar",
+              "label": "",
+              "properties": {
+                "menus": [
+                  {
+                    "name": "ファイル",
+                    "actions": [
+                      "新規プロジェクト",
+                      "プロジェクトを開く",
+                      "プロジェクトを保存",
+                      "エクスポート",
+                      "終了"
+                    ]
+                  },
+                  {
+                    "name": "編集",
+                    "actions": [
+                      "設定",
+                      "プロンプトテンプレート管理"
+                    ]
+                  },
+                  {
+                    "name": "表示",
+                    "actions": [
+                      "ダッシュボード",
+                      "コード解析",
+                      "依存関係ビュー",
+                      "モジュール提案",
+                      "仕様書",
+                      "テスト設計"
+                    ]
+                  },
+                  {
+                    "name": "ツール",
+                    "actions": [
+                      "AI連携ログ",
+                      "エクスポート",
+                      "インポート"
+                    ]
+                  },
+                  {
+                    "name": "ヘルプ",
+                    "actions": [
+                      "ユーザーガイド",
+                      "APIドキュメント",
+                      "バージョン情報"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QToolBar",
+              "element_name": "tool_bar",
+              "label": "",
+              "properties": {
+                "buttons": [
+                  "新規",
+                  "開く",
+                  "保存",
+                  "解析開始",
+                  "前のフェーズ",
+                  "次のフェーズ",
+                  "設定"
+                ]
+              }
+            },
+            {
+              "element_type": "QStatusBar",
+              "element_name": "status_bar",
+              "label": "",
+              "properties": {
+                "displays": [
+                  "現在のフェーズ",
+                  "処理状況",
+                  "最終更新時刻",
+                  "AI連携状態"
+                ]
+              }
+            },
+            {
+              "element_type": "QStackedWidget",
+              "element_name": "central_widget",
+              "label": "",
+              "properties": {
+                "pages": [
+                  "ダッシュボード",
+                  "コード解析画面",
+                  "依存関係画面",
+                  "クラスタリング画面",
+                  "階層構造画面",
+                  "モジュール提案画面",
+                  "仕様書作成画面",
+                  "テスト設計画面"
+                ]
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR002",
+              "trigger": "メニュー「表示」→「ダッシュボード」クリック"
+            },
+            {
+              "to_screen": "SCR003",
+              "trigger": "メニュー「表示」→「コード解析」クリック"
+            },
+            {
+              "to_screen": "SCR004",
+              "trigger": "メニュー「表示」→「依存関係ビュー」クリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR002",
+          "screen_name": "ダッシュボード",
+          "screen_type": "Window",
+          "description": "プロジェクト全体の概要と進捗状況を一覧表示。各フェーズの完了状況、主要メトリクス、最近のアクティビティを可視化",
+          "ui_elements": [
+            {
+              "element_type": "QGroupBox",
+              "element_name": "project_info_panel",
+              "label": "プロジェクト情報",
+              "properties": {
+                "fields": [
+                  "プロジェクト名",
+                  "作成日",
+                  "最終更新日",
+                  "ソースタイプ",
+                  "現在のフェーズ"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "phase_progress_panel",
+              "label": "フェーズ進捗",
+              "properties": {
+                "progress_bars": [
+                  "Phase 1.1",
+                  "Phase 1.2",
+                  "Phase 1.3",
+                  "Phase 2",
+                  "Phase 3",
+                  "Phase 4"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "metrics_summary_panel",
+              "label": "メトリクスサマリー",
+              "properties": {
+                "metrics": [
+                  "総ファイル数",
+                  "総関数数",
+                  "総クラス数",
+                  "検出された重複コード数",
+                  "提案されたモジュール数",
+                  "修正箇所数"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "recent_activity_panel",
+              "label": "最近のアクティビティ",
+              "properties": {
+                "list_widget": "QListWidget"
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "quick_action_panel",
+              "label": "クイックアクション",
+              "properties": {
+                "buttons": [
+                  "新規解析開始",
+                  "仕様書作成",
+                  "レポート生成",
+                  "エクスポート"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "dependency_graph_preview",
+              "label": "依存関係グラフプレビュー",
+              "properties": {
+                "canvas": "matplotlib FigureCanvas",
+                "button": "詳細表示"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR003",
+              "trigger": "クイックアクション「新規解析開始」ボタンクリック"
+            },
+            {
+              "to_screen": "SCR004",
+              "trigger": "依存関係グラフプレビュー「詳細表示」ボタンクリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR003",
+          "screen_name": "コード解析画面",
+          "screen_type": "Window",
+          "description": "コードファイルの読み込み、解析実行、機能抽出結果の表示を行う画面（Phase 1.1）",
+          "ui_elements": [
+            {
+              "element_type": "QGroupBox",
+              "element_name": "file_selection_panel",
+              "label": "ファイル選択",
+              "properties": {
+                "tree_view": "QTreeView",
+                "buttons": [
+                  "追加",
+                  "削除",
+                  "フォルダ追加"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "analysis_control_panel",
+              "label": "解析制御",
+              "properties": {
+                "buttons": [
+                  "解析開始",
+                  "解析停止"
+                ],
+                "progress_bar": "QProgressBar",
+                "log_area": "QTextEdit"
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "analysis_result_panel",
+              "label": "解析結果",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "関数一覧",
+                    "type": "QTableView",
+                    "columns": [
+                      "関数名",
+                      "ファイル",
+                      "行数",
+                      "複雑度",
+                      "呼び出し数",
+                      "被呼び出し数"
+                    ]
+                  },
+                  {
+                    "name": "クラス一覧",
+                    "type": "QTableView",
+                    "columns": [
+                      "クラス名",
+                      "ファイル",
+                      "メソッド数",
+                      "継承元",
+                      "行数"
+                    ]
+                  },
+                  {
+                    "name": "インポート一覧",
+                    "type": "QTableView",
+                    "columns": [
+                      "モジュール名",
+                      "インポート名",
+                      "ファイル",
+                      "行番号"
+                    ]
+                  },
+                  {
+                    "name": "統計情報",
+                    "type": "QWidget",
+                    "charts": [
+                      "ファイル別関数数グラフ",
+                      "複雑度分布グラフ",
+                      "コード行数分布"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "detail_panel",
+              "label": "詳細表示",
+              "properties": {
+                "info_area": "QTextEdit",
+                "code_area": "QTextEdit with syntax highlighting"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR005",
+              "trigger": "解析完了後「Phase 1.2へ進む」ボタンクリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR004",
+          "screen_name": "依存関係画面",
+          "screen_type": "Window",
+          "description": "コード間の依存関係を可視化し、循環依存や強結合を検出",
+          "ui_elements": [
+            {
+              "element_type": "QGroupBox",
+              "element_name": "graph_display_panel",
+              "label": "グラフ表示",
+              "properties": {
+                "canvas": "matplotlib FigureCanvas with networkx",
+                "zoom_controls": "QSlider",
+                "layout_selector": "QComboBox (階層型、力学型、円形)"
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "filter_panel",
+              "label": "フィルタ",
+              "properties": {
+                "dependency_type_filter": "QCheckBox group",
+                "strength_slider": "QSlider",
+                "circular_only_checkbox": "QCheckBox",
+                "file_filter": "QComboBox"
+              }
+            },
+            {
+              "element_type": "QTableView",
+              "element_name": "dependency_list_panel",
+              "label": "依存関係リスト",
+              "properties": {
+                "columns": [
+                  "ソース",
+                  "ターゲット",
+                  "依存タイプ",
+                  "強度",
+                  "循環依存"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "problem_detection_panel",
+              "label": "問題検出",
+              "properties": {
+                "circular_list": "QListWidget",
+                "tight_coupling_list": "QListWidget",
+                "recommendations": "QTextEdit"
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "detail_info_panel",
+              "label": "詳細情報",
+              "properties": {
+                "node_info": "QTextEdit",
+                "dependencies_list": "QListWidget",
+                "dependents_list": "QListWidget"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR006",
+              "trigger": "問題検出パネルから該当箇所をダブルクリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR005",
+          "screen_name": "クラスタリング画面",
+          "screen_type": "QWidget",
+          "description": "類似機能をグルーピングし、関係性を可視化（Phase 1.2）",
+          "ui_elements": [
+            {
+              "element_type": "QGroupBox",
+              "element_name": "clustering_control_panel",
+              "label": "クラスタリング制御",
+              "properties": {
+                "algorithm_selector": "QComboBox (K-means, 階層的, DBSCAN)",
+                "cluster_count": "QSpinBox",
+                "execute_button": "QPushButton",
+                "progress_bar": "QProgressBar"
+              }
+            },
+            {
+              "element_type": "QListWidget",
+              "element_name": "cluster_list_panel",
+              "label": "クラスタ一覧",
+              "properties": {
+                "columns": [
+                  "クラスタID",
+                  "クラスタ名",
+                  "メンバー数",
+                  "凝集度スコア"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "cluster_visualization_panel",
+              "label": "クラスタ可視化",
+              "properties": {
+                "canvas": "plotly/matplotlib canvas",
+                "chart_types": [
+                  "2D散布図",
+                  "3D散布図",
+                  "デンドログラム"
+                ]
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "cluster_detail_panel",
+              "label": "クラスタ詳細",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "メンバー",
+                    "type": "QTableView",
+                    "columns": [
+                      "関数/クラス名",
+                      "ファイル",
+                      "行数",
+                      "類似度"
+                    ]
+                  },
+                  {
+                    "name": "特徴",
+                    "type": "QTextEdit",
+                    "content": [
+                      "共通キーワード",
+                      "共通パターン",
+                      "推奨カテゴリ"
+                    ]
+                  },
+                  {
+                    "name": "提案",
+                    "type": "QTextEdit",
+                    "content": [
+                      "モジュール名提案",
+                      "責務定義",
+                      "統合推奨事項"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "クラスタ名編集",
+                  "カテゴリ割り当て",
+                  "モジュール提案に追加",
+                  "エクスポート"
+                ]
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR006",
+              "trigger": "「モジュール提案に追加」ボタンクリック後、自動遷移"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR006",
+          "screen_name": "モジュール提案画面",
+          "screen_type": "Window",
+          "description": "最適なモジュール構成を提案し、設計書ドラフトを作成（Phase 1.3）",
+          "ui_elements": [
+            {
+              "element_type": "QGroupBox",
+              "element_name": "proposal_generation_panel",
+              "label": "提案生成",
+              "properties": {
+                "generate_button": "QPushButton",
+                "prompt_selector": "QComboBox",
+                "progress_bar": "QProgressBar",
+                "log_area": "QTextEdit"
+              }
+            },
+            {
+              "element_type": "QTableView",
+              "element_name": "module_proposal_list",
+              "label": "モジュール提案リスト",
+              "properties": {
+                "columns": [
+                  "モジュール名",
+                  "タイプ",
+                  "優先度",
+                  "推定LOC",
+                  "依存数",
+                  "ステータス"
+                ]
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "module_detail_panel",
+              "label": "モジュール詳細",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "概要",
+                    "type": "QTextEdit",
+                    "content": [
+                      "モジュール名",
+                      "説明",
+                      "責務",
+                      "根拠"
+                    ]
+                  },
+                  {
+                    "name": "構成要素",
+                    "type": "QTableView",
+                    "columns": [
+                      "関数/クラス名",
+                      "現在のファイル",
+                      "移動先"
+                    ]
+                  },
+                  {
+                    "name": "依存関係",
+                    "type": "QWidget",
+                    "content": [
+                      "依存先モジュールリスト",
+                      "依存元モジュールリスト",
+                      "依存関係グラフ"
+                    ]
+                  },
+                  {
+                    "name": "設計ドラフト",
+                    "type": "QTextEdit with Markdown preview",
+                    "content": [
+                      "自動生成された設計書ドラフト"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "refactoring_suggestion_panel",
+              "label": "リファクタリング提案",
+              "properties": {
+                "fields": [
+                  "提案タイプ",
+                  "対象モジュール",
+                  "説明",
+                  "優先度",
+                  "リスクレベル"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "提案を承認",
+                  "提案を編集",
+                  "提案を却下",
+                  "設計書生成",
+                  "Phase 2へ進む"
+                ]
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR007",
+              "trigger": "「Phase 2へ進む」ボタンクリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR007",
+          "screen_name": "仕様書作成画面",
+          "screen_type": "Window",
+          "description": "各種仕様書を作成・編集（Phase 2）",
+          "ui_elements": [
+            {
+              "element_type": "QTreeView",
+              "element_name": "specification_list_panel",
+              "label": "仕様書リスト",
+              "properties": {
+                "structure": [
+                  "仕様書タイプ > 個別仕様書"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "specification_creation_panel",
+              "label": "仕様書作成",
+              "properties": {
+                "buttons": [
+                  "新規作成",
+                  "テンプレート選択",
+                  "AI生成",
+                  "インポート"
+                ]
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "editor_panel",
+              "label": "エディタ",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "編集",
+                    "type": "QTextEdit with Markdown support",
+                    "toolbar": "書式設定ツールバー"
+                  },
+                  {
+                    "name": "プレビュー",
+                    "type": "QTextBrowser",
+                    "content": "レンダリングされた仕様書"
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "metadata_panel",
+              "label": "メタデータ",
+              "properties": {
+                "fields": [
+                  "タイトル",
+                  "バージョン",
+                  "作成日",
+                  "更新日",
+                  "ステータス"
+                ]
+              }
+            },
+            {
+              "element_type": "QListWidget",
+              "element_name": "section_management_panel",
+              "label": "セクション管理",
+              "properties": {
+                "buttons": [
+                  "追加",
+                  "削除",
+                  "並び替え"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "保存",
+                  "エクスポート (PDF/HTML/Markdown)",
+                  "承認",
+                  "レビュー依頼"
+                ]
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR008",
+              "trigger": "メニュー「表示」→「テスト設計」クリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR008",
+          "screen_name": "テスト設計画面",
+          "screen_type": "Window",
+          "description": "単体テストと結合テストの設計（Phase 4）",
+          "ui_elements": [
+            {
+              "element_type": "QTreeView",
+              "element_name": "test_list_panel",
+              "label": "テストリスト",
+              "properties": {
+                "structure": [
+                  "テストタイプ (単体/結合) > モジュール > テストケース"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "test_creation_panel",
+              "label": "テスト作成",
+              "properties": {
+                "buttons": [
+                  "新規作成",
+                  "テンプレート選択"
+                ],
+                "selectors": [
+                  "対象モジュール選択",
+                  "対象関数選択"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "test_detail_panel",
+              "label": "テスト詳細",
+              "properties": {
+                "fields": [
+                  "テスト名",
+                  "テストタイプ",
+                  "対象モジュール",
+                  "対象関数",
+                  "説明",
+                  "前提条件リスト",
+                  "期待結果",
+                  "テストデータ",
+                  "優先度",
+                  "ステータス"
+                ]
+              }
+            },
+            {
+              "element_type": "QTableView",
+              "element_name": "test_step_editor",
+              "label": "テストステップエディタ",
+              "properties": {
+                "columns": [
+                  "ステップ番号",
+                  "アクション",
+                  "入力データ",
+                  "期待出力",
+                  "備考"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "coverage_display_panel",
+              "label": "カバレッジ表示",
+              "properties": {
+                "chart": "モジュール別カバレッジグラフ",
+                "metrics": [
+                  "全体カバレッジ率"
+                ],
+                "list": "未テスト関数リスト"
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "保存",
+                  "テストコード生成",
+                  "実行",
+                  "エクスポート"
+                ]
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "to_screen": "SCR009",
+              "trigger": "メニュー「表示」→「修正箇所」クリック"
+            }
+          ]
+        },
+        {
+          "screen_id": "SCR009",
+          "screen_name": "修正箇所画面",
+          "screen_type": "QWidget",
+          "description": "明確化された修正箇所の一覧と詳細",
+          "ui_elements": [
+            {
+              "element_type": "QTableView",
+              "element_name": "modification_point_list",
+              "label": "修正箇所リスト",
+              "properties": {
+                "columns": [
+                  "ファイル",
+                  "行範囲",
+                  "修正タイプ",
+                  "優先度",
+                  "影響度",
+                  "ステータス"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "filter_panel",
+              "label": "フィルタ",
+              "properties": {
+                "filters": [
+                  "修正タイプフィルタ",
+                  "優先度フィルタ",
+                  "ステータスフィルタ",
+                  "ファイルフィルタ"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "detail_panel",
+              "label": "詳細",
+              "properties": {
+                "fields": [
+                  "ファイルパス",
+                  "行範囲",
+                  "修正タイプ",
+                  "説明",
+                  "理由",
+                  "関連モジュール",
+                  "影響度",
+                  "推定工数",
+                  "優先度",
+                  "ステータス"
+                ]
+              }
+            },
+            {
+              "element_type": "QTextEdit",
+              "element_name": "code_display_panel",
+              "label": "コード表示",
+              "properties": {
+                "syntax_highlighting": true,
+                "line_numbers": true
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "related_info_panel",
+              "label": "関連情報",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "依存関係",
+                    "type": "QListWidget",
+                    "content": "影響を受けるモジュール/関数リスト"
+                  },
+                  {
+                    "name": "テスト",
+                    "type": "QListWidget",
+                    "content": "関連テストケースリスト"
+                  },
+                  {
+                    "name": "履歴",
+                    "type": "QListWidget",
+                    "content": "変更履歴"
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "ステータス更新",
+                  "コメント追加",
+                  "関連修正箇所を表示",
+                  "エクスポート"
+                ]
+              }
+            }
+          ],
+          "transitions": []
+        },
+        {
+          "screen_id": "SCR010",
+          "screen_name": "プロンプトテンプレート管理画面",
+          "screen_type": "Window",
+          "description": "フェーズ別の最適化プロンプトテンプレートの管理",
+          "ui_elements": [
+            {
+              "element_type": "QTreeView",
+              "element_name": "template_list",
+              "label": "テンプレートリスト",
+              "properties": {
+                "structure": [
+                  "フェーズ > サブフェーズ > テンプレート"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "template_creation_panel",
+              "label": "テンプレート作成",
+              "properties": {
+                "buttons": [
+                  "新規作成",
+                  "複製",
+                  "削除",
+                  "インポート"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "editor_panel",
+              "label": "エディタ",
+              "properties": {
+                "fields": [
+                  "テンプレート名",
+                  "フェーズ選択",
+                  "サブフェーズ選択",
+                  "説明",
+                  "プロンプトテキスト",
+                  "期待出力形式",
+                  "Max Tokens",
+                  "Temperature",
+                  "バージョン",
+                  "アクティブフラグ"
+                ]
+              }
+            },
+            {
+              "element_type": "QTableView",
+              "element_name": "variable_management_panel",
+              "label": "変数管理",
+              "properties": {
+                "columns": [
+                  "変数名",
+                  "説明",
+                  "デフォルト値",
+                  "必須"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "test_panel",
+              "label": "テスト",
+              "properties": {
+                "button": "テスト実行",
+                "input_fields": "変数入力フィールド",
+                "result_area": "QTextEdit"
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "保存",
+                  "テスト実行",
+                  "エクスポート",
+                  "バージョン管理"
+                ]
+              }
+            }
+          ],
+          "transitions": []
+        },
+        {
+          "screen_id": "SCR011",
+          "screen_name": "AI連携ログ画面",
+          "screen_type": "QWidget",
+          "description": "AI連携の履歴とログを表示",
+          "ui_elements": [
+            {
+              "element_type": "QTableView",
+              "element_name": "log_list",
+              "label": "ログリスト",
+              "properties": {
+                "columns": [
+                  "タイムスタンプ",
+                  "フェーズ",
+                  "プロンプトテンプレート",
+                  "ステータス",
+                  "トークン数",
+                  "処理時間"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "filter_panel",
+              "label": "フィルタ",
+              "properties": {
+                "filters": [
+                  "日付範囲選択",
+                  "フェーズフィルタ",
+                  "ステータスフィルタ"
+                ]
+              }
+            },
+            {
+              "element_type": "QTabWidget",
+              "element_name": "detail_panel",
+              "label": "詳細",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "送信プロンプト",
+                    "type": "QTextEdit",
+                    "content": "送信されたプロンプト全文"
+                  },
+                  {
+                    "name": "受信レスポンス",
+                    "type": "QTextEdit",
+                    "content": "受信したレスポンス全文"
+                  },
+                  {
+                    "name": "メタデータ",
+                    "type": "QWidget",
+                    "content": [
+                      "トークン数",
+                      "処理時間",
+                      "ステータス",
+                      "エラーメッセージ"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "statistics_panel",
+              "label": "統計",
+              "properties": {
+                "metrics": [
+                  "総リクエスト数",
+                  "成功率",
+                  "平均処理時間",
+                  "総トークン数",
+                  "コスト推定"
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "再実行",
+                  "エクスポート",
+                  "ログクリア"
+                ]
+              }
+            }
+          ],
+          "transitions": []
+        },
+        {
+          "screen_id": "SCR012",
+          "screen_name": "設定画面",
+          "screen_type": "Window",
+          "description": "アプリケーション全体の設定管理",
+          "ui_elements": [
+            {
+              "element_type": "QTabWidget",
+              "element_name": "settings_tabs",
+              "label": "",
+              "properties": {
+                "tabs": [
+                  {
+                    "name": "一般設定",
+                    "type": "QWidget",
+                    "fields": [
+                      "言語選択",
+                      "テーマ選択",
+                      "自動保存間隔",
+                      "ログレベル"
+                    ]
+                  },
+                  {
+                    "name": "AI連携設定",
+                    "type": "QWidget",
+                    "fields": [
+                      "APIキー",
+                      "エンドポイントURL",
+                      "タイムアウト時間",
+                      "リトライ回数",
+                      "デフォルトモデル"
+                    ]
+                  },
+                  {
+                    "name": "解析設定",
+                    "type": "QWidget",
+                    "fields": [
+                      "複雑度閾値",
+                      "重複検出閾値",
+                      "クラスタリングアルゴリズム",
+                      "除外パターン"
+                    ]
+                  },
+                  {
+                    "name": "エクスポート設定",
+                    "type": "QWidget",
+                    "fields": [
+                      "デフォルト出力形式",
+                      "出力ディレクトリ",
+                      "ファイル名テンプレート"
+                    ]
+                  },
+                  {
+                    "name": "詳細設定",
+                    "type": "QWidget",
+                    "fields": [
+                      "キャッシュディレクトリ",
+                      "一時ファイルディレクトリ",
+                      "最大並列処理数"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "element_type": "QGroupBox",
+              "element_name": "action_panel",
+              "label": "アクション",
+              "properties": {
+                "buttons": [
+                  "保存",
+                  "キャンセル",
+                  "デフォルトに戻す"
+                ]
+              }
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "function_details": [
+        {
+          "function_name": "Claudeによるアプリコード解析と機能抽出",
+          "description": "アップロードされたPythonコードファイルをASTパーサーで解析し、関数、クラス、インポート文を抽出。各要素の詳細情報（名前、シグネチャ、行範囲、複雑度、ドキュメント、パラメータ、戻り値の型など）を取得し、データベースに保存する。抽出された情報はClaudeに送信され、機能分類と説明の生成に使用される。",
+          "input_spec": {
+            "source_files": "解析対象のPythonファイルパスリスト (list[Path])",
+            "project_id": "プロジェクトID (string UUID)",
+            "analysis_config": "解析設定（除外パターン、複雑度閾値など） (dict)"
+          },
+          "process_flow": [
+            "1. ファイルの読み込みとエンコーディング検出（chardetライブラリ使用）",
+            "2. ファイルハッシュ値の計算（SHA256）",
+            "3. ASTパーサー（astモジュール）による構文解析",
+            "4. 関数定義の抽出：名前、シグネチャ、開始・終了行、パラメータ、戻り値の型、ドキュメント文字列を取得",
+            "5. 循環的複雑度の計算（制御フロー分析）",
+            "6. クラス定義の抽出：名前、継承元、メソッドリスト、属性リスト、ドキュメント文字列を取得",
+            "7. インポート文の抽出：モジュール名、インポート名、エイリアス、相対インポートフラグを取得",
+            "8. 関数・クラス間の呼び出し関係の解析（ASTノード走査）",
+            "9. 抽出結果をCodeFile、Function、ClassDefinition、ImportStatementモデルとしてデータベースに保存",
+            "10. 抽出された関数・クラスのリストをClaudeに送信し、機能分類と説明を取得",
+            "11. Claudeからのレスポンスを解析し、feature_categoryフィールドを更新",
+            "12. 解析結果のサマリーを生成し、UIに表示"
+          ],
+          "output_spec": {
+            "analysis_result": "解析結果を含む辞書（関数リスト、クラスリスト、インポートリスト、統計情報） (dict)",
+            "database_records": "データベースに保存されたレコードのIDリスト (list[string])",
+            "status": "処理ステータス（success、error、partial） (string)"
+          },
+          "error_handling": [
+            {
+              "error_type": "ファイル読み込みエラー",
+              "handling": "エラーログを記録し、該当ファイルをスキップして次のファイルへ進む。エラーファイルリストをUIに表示。"
+            },
+            {
+              "error_type": "構文エラー",
+              "handling": "エラー箇所（行番号、メッセージ）を記録し、部分的に解析可能な範囲で処理を継続。エラー詳細をログに記録。"
+            },
+            {
+              "error_type": "メモリ不足",
+              "handling": "大きなファイルをチャンク単位で処理するモードに切り替え。進捗バーで状況を表示。"
+            },
+            {
+              "error_type": "Claude API エラー",
+              "handling": "リトライ（最大3回）。失敗時は基本的な機能分類（関数名ベース）にフォールバック。エラー詳細をAIInteractionLogに記録。"
+            },
+            {
+              "error_type": "タイムアウト",
+              "handling": "進捗を保存して中断し、再開可能な状態にする。中断ポイントをデータベースに記録。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：単一ファイルの解析",
+              "input": "有効なPythonファイル1つ",
+              "expected_output": "関数、クラス、インポートが正しく抽出され、データベースに保存される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：複数ファイルの解析",
+              "input": "有効なPythonファイル複数",
+              "expected_output": "全ファイルが解析され、結果が統合される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：構文エラーを含むファイル",
+              "input": "構文エラーを含むPythonファイル",
+              "expected_output": "エラーが記録され、部分的な解析結果が返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：存在しないファイル",
+              "input": "存在しないファイルパス",
+              "expected_output": "ファイル読み込みエラーが記録され、処理がスキップされる",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：空のファイル",
+              "input": "空のPythonファイル",
+              "expected_output": "空の解析結果が返される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "依存関係の把握と可視化",
+          "description": "抽出された関数・クラス間の依存関係を分析し、有向グラフとして構築。循環依存の検出、結合度の計算、依存関係の強度評価を行い、networkxとmatplotlibを使用してグラフを可視化する。",
+          "input_spec": {
+            "functions": "抽出された関数リスト (list[Function])",
+            "classes": "抽出されたクラスリスト (list[ClassDefinition])",
+            "imports": "インポート文リスト (list[ImportStatement])"
+          },
+          "process_flow": [
+            "1. networkx.DiGraph()で有向グラフを初期化",
+            "2. 各関数・クラスをノードとしてグラフに追加（属性：名前、タイプ、ファイルパス、行範囲）",
+            "3. 関数の呼び出し関係をエッジとして追加（calls依存）",
+            "4. クラスの継承関係をエッジとして追加（inherits依存）",
+            "5. 変数の使用関係をエッジとして追加（uses依存）",
+            "6. インポート関係をエッジとして追加（imports依存）",
+            "7. 各エッジの重み付け（呼び出し回数、依存の強さを0.0-1.0で正規化）",
+            "8. 強連結成分の検出（networkx.strongly_connected_components）で循環依存を特定",
+            "9. 各ノードの入次数・出次数を計算（ファンイン・ファンアウト）",
+            "10. 結合度メトリクスの計算（平均入次数、平均出次数、最大結合度）",
+            "11. グラフレイアウトの計算（階層型：graphviz_layout、力学型：spring_layout、円形：circular_layout）",
+            "12. matplotlibでグラフを描画（ノードの色：タイプ別、エッジの太さ：強度に比例）",
+            "13. 循環依存と強結合のリストを生成",
+            "14. 可視化データとメトリクスをUIに表示"
+          ],
+          "output_spec": {
+            "dependency_graph": "依存関係グラフ（networkx.DiGraph）",
+            "circular_dependencies": "循環依存のリスト（各要素はノードIDのリスト） (list[list[string]])",
+            "coupling_metrics": "結合度メトリクス（平均入次数、平均出次数、最大結合度など） (dict)",
+            "visualization_data": "可視化用データ（グラフ画像、レイアウト情報） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "グラフ構築エラー",
+              "handling": "エラーをログに記録し、部分的なグラフを返す。欠損ノード・エッジをリストアップ。"
+            },
+            {
+              "error_type": "循環依存検出エラー",
+              "handling": "代替アルゴリズム（DFS）で再試行。失敗時は警告を表示し、検出なしとして処理を継続。"
+            },
+            {
+              "error_type": "可視化エラー",
+              "handling": "エラーをログに記録し、デフォルトレイアウトで再試行。失敗時はグラフデータのみ返す。"
+            },
+            {
+              "error_type": "メモリ不足",
+              "handling": "大規模グラフの場合、サブグラフに分割して処理。警告をUIに表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：単純な依存関係",
+              "input": "A→B→Cの単純な依存関係",
+              "expected_output": "3ノード、2エッジのグラフが生成され、循環依存なし",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：循環依存の検出",
+              "input": "A→B→C→Aの循環依存",
+              "expected_output": "循環依存が検出され、リストに含まれる",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：複雑な依存関係",
+              "input": "複数の関数・クラスが相互に依存",
+              "expected_output": "全依存関係が正しくグラフ化され、結合度が計算される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：依存関係なし",
+              "input": "独立した関数のみ",
+              "expected_output": "ノードのみのグラフが生成され、エッジなし",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：大規模グラフ",
+              "input": "1000ノード以上の依存関係",
+              "expected_output": "グラフが生成され、パフォーマンス警告が表示される",
+              "test_type": "performance"
+            }
+          ]
+        },
+        {
+          "function_name": "重複コードの自動検出",
+          "description": "コード間の類似性を分析し、重複コードを検出。完全一致（ハッシュベース）と部分一致（トークンベース、構造ベース）の両方をサポート。検出された重複コードをグループ化し、統合候補を提示する。",
+          "input_spec": {
+            "code_files": "解析対象のコードファイルリスト (list[CodeFile])",
+            "similarity_threshold": "類似度閾値（0.0-1.0） (float)",
+            "min_lines": "最小行数（これ以下の重複は無視） (integer)"
+          },
+          "process_flow": [
+            "1. 各ファイルのコードをトークン化（reモジュールで空白・コメントを除去）",
+            "2. 完全一致検出：各コードブロックのSHA256ハッシュ値を計算し、同一ハッシュをグループ化",
+            "3. 部分一致検出：n-gram（n=3）ベースの類似度計算",
+            "4. 各コードブロックペアの類似度をdifflibのSequenceMatcherで計算",
+            "5. 構造的類似度の計算：ASTノード構造を比較（ノードタイプ、深さ、子ノード数）",
+            "6. 類似度が閾値以上のペアを重複候補として抽出",
+            "7. 重複候補をグループ化（連結成分アルゴリズム）",
+            "8. 各グループの代表コードを選定（最も短いコード、または最も頻繁に使用されるコード）",
+            "9. グループごとの統計情報を計算（総行数、推定削減可能行数、重複率）",
+            "10. 統合提案の生成：共通関数として抽出する提案を作成",
+            "11. 重複グループをDuplicateCodeモデルとしてデータベースに保存",
+            "12. 検出結果とグループ情報をUIに表示"
+          ],
+          "output_spec": {
+            "duplicate_groups": "重複コードグループのリスト（各グループはDuplicateCodeオブジェクトのリスト） (list[list[DuplicateCode]])",
+            "statistics": "重複統計情報（総グループ数、総重複行数、重複率、推定削減可能行数） (dict)",
+            "consolidation_suggestions": "統合提案のリスト（共通関数名、対象コードブロック、期待効果） (list[dict])"
+          },
+          "error_handling": [
+            {
+              "error_type": "トークン化エラー",
+              "handling": "エラーをログに記録し、該当コードブロックをスキップ。エラー箇所をリストアップ。"
+            },
+            {
+              "error_type": "類似度計算エラー",
+              "handling": "該当ペアをスキップし、警告をログに記録。他のペアの処理を継続。"
+            },
+            {
+              "error_type": "メモリ不足",
+              "handling": "バッチ処理に切り替え（ファイル単位またはコードブロック単位）。進捗バーで状況を表示。"
+            },
+            {
+              "error_type": "閾値設定エラー",
+              "handling": "無効な閾値の場合、デフォルト値（0.8）を使用し、警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：完全一致の検出",
+              "input": "同一コードが複数箇所に存在",
+              "expected_output": "完全一致グループが検出される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：部分一致の検出",
+              "input": "類似度0.85のコードペア",
+              "expected_output": "部分一致グループが検出される（閾値0.8の場合）",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：複数グループの検出",
+              "input": "異なる重複パターンが複数存在",
+              "expected_output": "各パターンが別グループとして検出される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：重複なし",
+              "input": "全てのコードが一意",
+              "expected_output": "空の重複リストが返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：最小行数未満",
+              "input": "5行の重複コード（最小行数10の場合）",
+              "expected_output": "検出されない",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "類似機能のクラスタリングとグルーピング",
+          "description": "抽出された関数・クラスを特徴ベクトルに変換し、機械学習ベースのクラスタリングアルゴリズムで類似機能をグルーピング。TF-IDFベクトル化、次元削減、クラスタリング、クラスタ評価を行い、結果を可視化する。",
+          "input_spec": {
+            "functions": "抽出された関数リスト (list[Function])",
+            "classes": "抽出されたクラスリスト (list[ClassDefinition])",
+            "clustering_config": "クラスタリング設定（アルゴリズム、クラスタ数、パラメータなど） (dict)"
+          },
+          "process_flow": [
+            "1. 特徴抽出：各関数・クラスから特徴を抽出（名前、ドキュメント、呼び出しパターン、パラメータタイプ）",
+            "2. テキスト特徴のTF-IDFベクトル化（sklearn.feature_extraction.text.TfidfVectorizer）",
+            "3. 数値特徴の正規化（sklearn.preprocessing.StandardScaler）",
+            "4. 特徴ベクトルの結合（テキスト特徴と数値特徴）",
+            "5. 次元削減：PCAまたはt-SNEで高次元ベクトルを2D/3Dに削減（sklearn.decomposition.PCA、sklearn.manifold.TSNE）",
+            "6. クラスタリングアルゴリズムの適用：K-means（sklearn.cluster.KMeans）、階層的（sklearn.cluster.AgglomerativeClustering）、DBSCAN（sklearn.cluster.DBSCAN）",
+            "7. クラスタの評価：シルエット係数（sklearn.metrics.silhouette_score）、凝集度（inertia）を計算",
+            "8. 各クラスタの特徴分析：共通キーワード抽出（TF-IDF上位語）、共通パターン識別",
+            "9. クラスタ名の自動生成：共通キーワードと機能パターンから推定",
+            "10. クラスタメンバーのfeature_categoryとcluster_idを更新",
+            "11. 可視化データの生成：2D/3D散布図（plotly）、デンドログラム（scipy.cluster.hierarchy）",
+            "12. クラスタリング結果をFeatureClusterモデルとしてデータベースに保存",
+            "13. 結果と可視化をUIに表示"
+          ],
+          "output_spec": {
+            "clusters": "クラスタリング結果（FeatureClusterオブジェクトのリスト） (list[FeatureCluster])",
+            "visualization_data": "可視化用データ（散布図データ、デンドログラムデータ、レイアウト情報） (dict)",
+            "evaluation_metrics": "評価メトリクス（シルエット係数、凝集度、クラスタ数） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "ベクトル化エラー",
+              "handling": "エラーをログに記録し、該当特徴をデフォルト値（ゼロベクトル）で補完。警告を表示。"
+            },
+            {
+              "error_type": "クラスタリング失敗",
+              "handling": "パラメータ（クラスタ数、eps、min_samples）を自動調整して再試行。失敗時はデフォルトグルーピング（機能名ベース）にフォールバック。"
+            },
+            {
+              "error_type": "次元削減エラー",
+              "handling": "代替アルゴリズム（PCA→t-SNE、またはその逆）で再試行。失敗時は元の次元で処理を継続。"
+            },
+            {
+              "error_type": "メモリ不足",
+              "handling": "バッチ処理またはミニバッチクラスタリングに切り替え。警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：K-meansクラスタリング",
+              "input": "100個の関数、クラスタ数5",
+              "expected_output": "5つのクラスタが生成され、各クラスタに関数が割り当てられる",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：階層的クラスタリング",
+              "input": "50個の関数、デンドログラム生成",
+              "expected_output": "階層構造が生成され、デンドログラムが表示される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：DBSCANクラスタリング",
+              "input": "密度の異なる関数群",
+              "expected_output": "密度に基づいてクラスタが自動生成され、ノイズが識別される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：特徴が不足",
+              "input": "ドキュメントのない関数のみ",
+              "expected_output": "名前ベースの特徴でクラスタリングが実行される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：クラスタ数が要素数より多い",
+              "input": "10個の関数、クラスタ数15",
+              "expected_output": "警告が表示され、クラスタ数が自動調整される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "階層的分類による俯瞰構造の整理",
+          "description": "クラスタリング結果と機能分析に基づいて、ドメイン、サブドメイン、機能グループ、個別機能の階層構造を構築。全体構造を俯瞰可能にし、ツリーマップやサンバーストチャートで可視化する。",
+          "input_spec": {
+            "clusters": "クラスタリング結果（FeatureClusterオブジェクトのリスト） (list[FeatureCluster])",
+            "functions": "関数リスト (list[Function])",
+            "classes": "クラスリスト (list[ClassDefinition])"
+          },
+          "process_flow": [
+            "1. クラスタの意味的分析：各クラスタの共通キーワードと機能パターンを抽出",
+            "2. ドメインの識別：ビジネスロジック、UI、データアクセス、ユーティリティなどの大分類を自動判定",
+            "3. サブドメインの抽出：各ドメイン内の中分類を識別（例：データアクセス→データベース操作、ファイルI/O）",
+            "4. 機能グループの形成：クラスタをサブドメインに配置",
+            "5. 個別機能の配置：各関数・クラスを機能グループに配置",
+            "6. 階層の最適化：バランス調整（各レベルの子ノード数を均等化）、深さ調整（過度に深い階層を平坦化）",
+            "7. 階層構造ツリーの構築：HierarchicalStructureモデルとして保存",
+            "8. 統計情報の計算：各ノードの子ノード数、リーフ数、深さ",
+            "9. 可視化データの生成：ツリーマップ（plotly.express.treemap）、サンバーストチャート（plotly.express.sunburst）、階層グラフ（networkx）",
+            "10. 階層構造とノード情報をデータベースに保存",
+            "11. 可視化と統計情報をUIに表示"
+          ],
+          "output_spec": {
+            "hierarchical_structure": "階層構造ツリー（HierarchicalStructureオブジェクトのツリー） (tree[HierarchicalStructure])",
+            "visualization_data": "可視化用データ（ツリーマップ、サンバーストチャート、階層グラフ） (dict)",
+            "statistics": "統計情報（総階層レベル数、ドメイン数、機能グループ数、個別機能数、バランススコア） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "階層構築エラー",
+              "handling": "エラーをログに記録し、フラットな構造（全機能を1レベルに配置）にフォールバック。"
+            },
+            {
+              "error_type": "最適化失敗",
+              "handling": "最適化をスキップし、初期構造を返す。警告を表示。"
+            },
+            {
+              "error_type": "可視化エラー",
+              "handling": "代替可視化（シンプルなツリー表示）にフォールバック。エラーをログに記録。"
+            },
+            {
+              "error_type": "ノード数過多",
+              "handling": "大規模構造の場合、上位レベルのみ表示し、展開可能なUIを提供。警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：バランスの取れた階層",
+              "input": "均等に分散されたクラスタ",
+              "expected_output": "バランスの取れた階層構造が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：複雑な階層",
+              "input": "多様なドメインとサブドメイン",
+              "expected_output": "多層の階層構造が生成され、各レベルが適切に分類される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：クラスタなし",
+              "input": "クラスタリング結果が空",
+              "expected_output": "フラットな構造が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：単一ドメイン",
+              "input": "全機能が同一ドメイン",
+              "expected_output": "単一ドメイン下にサブドメインが生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：深すぎる階層",
+              "input": "10レベル以上の階層",
+              "expected_output": "階層が最適化され、5-7レベルに調整される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "適切なモジュール分割の提案",
+          "description": "階層構造、クラスタリング結果、依存関係分析に基づいて、最適なモジュール構成を提案。一枚ファイルの分割、既存モジュールの統合・リファクタリングを含む。循環依存の回避、モジュールサイズの最適化、責務の明確化を実現。",
+          "input_spec": {
+            "hierarchical_structure": "階層構造ツリー (tree[HierarchicalStructure])",
+            "clusters": "クラスタリング結果 (list[FeatureCluster])",
+            "dependencies": "依存関係グラフ (networkx.DiGraph)",
+            "source_type": "ソース構成タイプ（single_file | multi_module） (enum)"
+          },
+          "process_flow": [
+            "1. モジュール境界の識別：階層構造の機能グループをモジュール候補として抽出",
+            "2. 責務の定義：各モジュール候補の責務を明文化（単一責任原則に基づく）",
+            "3. 依存関係の分析：モジュール間の依存関係を計算、循環依存をチェック",
+            "4. 循環依存の解消：循環依存が検出された場合、モジュール境界を調整または依存注入パターンを提案",
+            "5. モジュールサイズの最適化：推定LOCを計算、大きすぎるモジュールは分割、小さすぎるモジュールは統合を提案",
+            "6. 命名規則の適用：Pythonの命名規則に従ったモジュール名を生成（小文字、アンダースコア区切り）",
+            "7. 一枚ファイルの場合：分割ポイントを特定、各モジュールに含める関数・クラスをリストアップ",
+            "8. 既存モジュールの場合：重複機能を検出、過剰な細分化を識別、統合・分割・抽出の提案を生成",
+            "9. モジュールタイプの分類：core、utility、feature、integration、uiに分類",
+            "10. 優先順位付け：影響度、依存関係の複雑さ、推定工数に基づいて優先順位を設定",
+            "11. 提案の根拠を生成：なぜこのモジュール構成が最適かを説明",
+            "12. ModuleProposalモデルとしてデータベースに保存",
+            "13. 提案リストをUIに表示"
+          ],
+          "output_spec": {
+            "module_proposals": "モジュール提案リスト（ModuleProposalオブジェクトのリスト） (list[ModuleProposal])",
+            "refactoring_suggestions": "リファクタリング提案リスト（RefactoringSuggestionオブジェクトのリスト） (list[RefactoringSuggestion])",
+            "dependency_adjustments": "依存関係調整案（循環依存解消のための変更） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "提案生成エラー",
+              "handling": "エラーをログに記録し、基本的な提案（クラスタベースの単純分割）のみ返す。"
+            },
+            {
+              "error_type": "循環依存解消失敗",
+              "handling": "循環依存を許容する提案を生成し、手動解決が必要な旨を警告表示。"
+            },
+            {
+              "error_type": "最適化失敗",
+              "handling": "現状維持を推奨する提案を生成。警告を表示。"
+            },
+            {
+              "error_type": "命名衝突",
+              "handling": "連番を付加してユニークなモジュール名を生成。警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：一枚ファイルの分割",
+              "input": "1000行の単一ファイル、5つのクラスタ",
+              "expected_output": "5つのモジュール提案が生成され、各モジュールに適切な関数・クラスが割り当てられる",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "正常系：既存モジュールの統合",
+              "input": "重複機能を持つ3つのモジュール",
+              "expected_output": "統合提案が生成され、重複が解消される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "正常系：循環依存の解消",
+              "input": "A→B→A の循環依存",
+              "expected_output": "循環依存を解消するモジュール境界調整案が提案される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：分割不可能",
+              "input": "全機能が強く結合",
+              "expected_output": "現状維持の提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：過剰な細分化",
+              "input": "30個の小さなモジュール",
+              "expected_output": "統合提案が生成され、適切な数（5-10個）に集約される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "各モジュールの役割定義と設計書ドラフト作成",
+          "description": "提案されたモジュールごとに役割を定義し、Claudeを活用して設計書のドラフトを自動生成。責務、インターフェース、依存関係、使用例を含む包括的な設計書を作成。",
+          "input_spec": {
+            "module_proposals": "モジュール提案リスト (list[ModuleProposal])",
+            "prompt_template": "設計書生成用プロンプトテンプレート (PromptTemplate)"
+          },
+          "process_flow": [
+            "1. 各モジュール提案の情報を収集：モジュール名、責務、含まれる関数・クラス、依存関係",
+            "2. 責務の明文化：単一責任原則に基づいて責務を簡潔に記述",
+            "3. インターフェース定義：公開関数・クラスのシグネチャをリストアップ",
+            "4. 依存関係の文書化：依存するモジュールと依存されるモジュールをリストアップ",
+            "5. プロンプトテンプレートの読み込み：Jinja2テンプレートエンジンで変数を埋め込み",
+            "6. プロンプトの生成：モジュール情報をテンプレートに埋め込んで完全なプロンプトを作成",
+            "7. Claude APIへのリクエスト送信：aiohttpで非同期リクエスト、タイムアウト30秒",
+            "8. レスポンスの受信と解析：JSON形式のレスポンスをパース",
+            "9. Markdown形式での設計書生成：セクション構造（概要、責務、インターフェース、依存関係、使用例、注意事項）",
+            "10. レビュー用メタデータの付加：作成日時、バージョン、ステータス（draft）",
+            "11. 設計書をデータベースに保存（SpecificationDocumentモデル）",
+            "12. 生成された設計書をUIに表示、編集可能な状態にする"
+          ],
+          "output_spec": {
+            "design_drafts": "モジュールごとの設計書ドラフト（Markdown形式） (list[dict])",
+            "generation_logs": "生成ログ（各モジュールの生成時間、トークン数、ステータス） (list[dict])"
+          },
+          "error_handling": [
+            {
+              "error_type": "Claude API エラー",
+              "handling": "リトライ（最大3回、指数バックオフ）。失敗時は基本テンプレートで設計書を生成し、手動編集を促す。"
+            },
+            {
+              "error_type": "レスポンス解析エラー",
+              "handling": "エラーをログに記録し、手動編集用の空テンプレートを提供。レスポンス生データも保存。"
+            },
+            {
+              "error_type": "タイムアウト",
+              "handling": "タイムアウトをログに記録し、再試行を提案。部分的な結果があれば保存。"
+            },
+            {
+              "error_type": "テンプレートエラー",
+              "handling": "デフォルトテンプレートにフォールバック。エラー詳細をログに記録。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：単一モジュールの設計書生成",
+              "input": "1つのモジュール提案",
+              "expected_output": "完全な設計書ドラフトが生成される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "正常系：複数モジュールの一括生成",
+              "input": "5つのモジュール提案",
+              "expected_output": "全モジュールの設計書が生成される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：API エラー",
+              "input": "無効なAPIキー",
+              "expected_output": "エラーが記録され、基本テンプレートが生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：タイムアウト",
+              "input": "非常に大きなモジュール",
+              "expected_output": "タイムアウトが記録され、再試行が提案される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：空のモジュール",
+              "input": "関数・クラスを含まないモジュール提案",
+              "expected_output": "警告付きの最小限の設計書が生成される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "既存モジュール間の類似・重複機能検出",
+          "description": "既存の分割構成の場合、モジュール間で類似・重複する機能を検出。関数名、シグネチャ、コードの類似度、機能の意味的類似度を分析し、統合候補を特定。",
+          "input_spec": {
+            "modules": "既存モジュールのリスト（各モジュールの関数・クラス情報を含む） (list[dict])",
+            "similarity_threshold": "類似度閾値（0.0-1.0） (float)"
+          },
+          "process_flow": [
+            "1. 各モジュールの関数・クラスを抽出",
+            "2. モジュール間で関数名の類似度を計算（編集距離、Levenshtein距離）",
+            "3. シグネチャの比較：パラメータ数、パラメータタイプ、戻り値の型",
+            "4. コードの類似度計算：difflibのSequenceMatcherで類似度を算出",
+            "5. 意味的類似度の計算：関数名とドキュメントのTF-IDFベクトルのコサイン類似度",
+            "6. 類似度が閾値以上のペアを重複候補として抽出",
+            "7. 重複候補のグルーピング：連結成分アルゴリズムでグループ化",
+            "8. 各グループの分析：完全重複、部分重複、意味的重複を分類",
+            "9. 統合提案の生成：共通モジュールへの抽出、モジュール統合、リファクタリングを提案",
+            "10. 影響度の評価：各提案が他のモジュールに与える影響を分析",
+            "11. 優先順位付け：重複度、影響度、推定工数に基づいて優先順位を設定",
+            "12. 検出結果をデータベースに保存",
+            "13. 結果と提案をUIに表示"
+          ],
+          "output_spec": {
+            "similar_function_pairs": "類似関数ペアのリスト（各ペアは2つの関数IDと類似度を含む） (list[dict])",
+            "duplicate_groups": "重複グループのリスト（各グループは複数の関数IDを含む） (list[list[string]])",
+            "consolidation_suggestions": "統合提案のリスト（提案タイプ、対象モジュール、期待効果） (list[dict])"
+          },
+          "error_handling": [
+            {
+              "error_type": "類似度計算エラー",
+              "handling": "該当ペアをスキップし、警告をログに記録。他のペアの処理を継続。"
+            },
+            {
+              "error_type": "グルーピングエラー",
+              "handling": "個別の重複ペアとして扱い、グループ化をスキップ。警告を表示。"
+            },
+            {
+              "error_type": "メモリ不足",
+              "handling": "モジュールペア単位でバッチ処理に切り替え。進捗バーで状況を表示。"
+            },
+            {
+              "error_type": "閾値設定エラー",
+              "handling": "無効な閾値の場合、デフォルト値（0.8）を使用し、警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：完全重複の検出",
+              "input": "2つのモジュールに同一関数が存在",
+              "expected_output": "完全重複として検出され、統合提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：部分重複の検出",
+              "input": "類似度0.85の関数ペア",
+              "expected_output": "部分重複として検出される（閾値0.8の場合）",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：意味的重複の検出",
+              "input": "異なる実装だが同じ機能を持つ関数",
+              "expected_output": "意味的重複として検出され、統合提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：重複なし",
+              "input": "全てのモジュールが独立",
+              "expected_output": "空の重複リストが返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：多数のモジュール",
+              "input": "50個のモジュール",
+              "expected_output": "全ペアが比較され、結果が返される（パフォーマンス警告付き）",
+              "test_type": "performance"
+            }
+          ]
+        },
+        {
+          "function_name": "統合やリファクタリングの提案",
+          "description": "検出された重複機能、過剰な細分化、循環依存などに基づいて、モジュールの統合、分割、共通機能の抽出、依存関係の簡素化などのリファクタリング提案を生成。",
+          "input_spec": {
+            "duplicate_groups": "重複グループのリスト (list[list[string]])",
+            "module_proposals": "モジュール提案リスト (list[ModuleProposal])",
+            "dependencies": "依存関係グラフ (networkx.DiGraph)",
+            "circular_dependencies": "循環依存のリスト (list[list[string]])"
+          },
+          "process_flow": [
+            "1. 重複機能の分析：重複グループから統合候補を抽出",
+            "2. モジュールサイズの評価：小さすぎるモジュール（100行未満）を統合候補として特定",
+            "3. 過剰な細分化の検出：類似責務を持つモジュールをグループ化",
+            "4. 循環依存の分析：循環依存を解消するための境界調整案を生成",
+            "5. 共通機能の抽出：複数モジュールで使用される機能をユーティリティモジュールに抽出する提案",
+            "6. 依存関係の簡素化：依存チェーンが長い場合、中間層の導入や直接依存への変更を提案",
+            "7. 提案タイプの分類：merge_modules、split_module、extract_common、remove_duplicate、simplify_dependency",
+            "8. 各提案の根拠を生成：なぜこのリファクタリングが必要かを説明",
+            "9. 期待される効果を記述：保守性向上、コード削減、依存関係の明確化など",
+            "10. 工数見積もり：低・中・高で分類",
+            "11. リスクレベルの評価：変更の影響範囲に基づいて低・中・高で分類",
+            "12. 優先順位付け：効果、工数、リスクのバランスで1-5の優先度を設定",
+            "13. RefactoringSuggestionモデルとしてデータベースに保存",
+            "14. 提案リストをUIに表示"
+          ],
+          "output_spec": {
+            "refactoring_suggestions": "リファクタリング提案リスト（RefactoringSuggestionオブジェクトのリスト） (list[RefactoringSuggestion])",
+            "impact_analysis": "影響分析結果（各提案の影響範囲、変更が必要なファイル数） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "提案生成エラー",
+              "handling": "エラーをログに記録し、基本的な提案（重複削除のみ）を返す。"
+            },
+            {
+              "error_type": "影響分析エラー",
+              "handling": "影響範囲を「不明」として記録し、手動確認を促す警告を表示。"
+            },
+            {
+              "error_type": "優先順位計算エラー",
+              "handling": "デフォルト優先度（3）を設定し、警告をログに記録。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：モジュール統合提案",
+              "input": "重複機能を持つ2つのモジュール",
+              "expected_output": "merge_modules提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：共通機能抽出提案",
+              "input": "3つのモジュールで共通使用される関数",
+              "expected_output": "extract_common提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：循環依存解消提案",
+              "input": "A→B→Cの循環依存",
+              "expected_output": "simplify_dependency提案が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：提案なし",
+              "input": "最適な構造",
+              "expected_output": "空の提案リストが返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：多数の提案",
+              "input": "20個以上の問題点",
+              "expected_output": "全提案が生成され、優先順位でソートされる",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "修正箇所の明確化",
+          "description": "モジュール提案とリファクタリング提案に基づいて、具体的な修正箇所を特定。ファイルパス、行範囲、修正タイプ、修正内容、理由、影響度、推定工数を明確化し、優先順位を付けて提示。",
+          "input_spec": {
+            "module_proposals": "モジュール提案リスト (list[ModuleProposal])",
+            "refactoring_suggestions": "リファクタリング提案リスト (list[RefactoringSuggestion])",
+            "code_files": "コードファイルリスト (list[CodeFile])",
+            "functions": "関数リスト (list[Function])",
+            "classes": "クラスリスト (list[ClassDefinition])"
+          },
+          "process_flow": [
+            "1. モジュール提案から修正箇所を抽出：各モジュールに含める関数・クラスの移動元と移動先を特定",
+            "2. リファクタリング提案から修正箇所を抽出：統合、分割、削除、追加の対象を特定",
+            "3. 各修正箇所のファイルパスと行範囲を取得：Functionモデル、ClassDefinitionモデルから取得",
+            "4. 修正タイプの分類：refactor（リファクタリング）、merge（統合）、split（分割）、remove（削除）、add（追加）",
+            "5. 修正内容の記述：何をどのように変更するかを具体的に記述",
+            "6. 修正理由の記述：なぜこの修正が必要かを説明",
+            "7. 関連モジュールのリストアップ：修正が影響を与えるモジュールを特定",
+            "8. 影響度の評価：low（単一ファイル内）、medium（複数ファイル）、high（モジュール間インターフェース変更）",
+            "9. 推定工数の算出：行数、複雑度、依存関係の数に基づいて算出",
+            "10. 優先順位の設定：影響度、工数、提案の優先度から総合的に判断（1-5、1が最高）",
+            "11. ModificationPointモデルとしてデータベースに保存",
+            "12. 修正箇所リストをUIに表示、フィルタリング・ソート機能を提供"
+          ],
+          "output_spec": {
+            "modification_points": "修正箇所リスト（ModificationPointオブジェクトのリスト） (list[ModificationPoint])",
+            "summary_statistics": "サマリー統計（総修正箇所数、タイプ別内訳、影響度別内訳、推定総工数） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "行範囲取得エラー",
+              "handling": "エラーをログに記録し、ファイル全体を修正対象として記録。手動確認を促す。"
+            },
+            {
+              "error_type": "影響度評価エラー",
+              "handling": "デフォルト影響度（medium）を設定し、警告をログに記録。"
+            },
+            {
+              "error_type": "工数算出エラー",
+              "handling": "デフォルト工数（「要確認」）を設定し、手動見積もりを促す。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：関数移動の修正箇所",
+              "input": "関数Aをモジュールmain.pyからdata_processor.pyに移動",
+              "expected_output": "2つの修正箇所（削除と追加）が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：重複削除の修正箇所",
+              "input": "重複関数の削除",
+              "expected_output": "remove タイプの修正箇所が生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：複数提案からの修正箇所",
+              "input": "5つのモジュール提案と3つのリファクタリング提案",
+              "expected_output": "全提案から修正箇所が抽出され、優先順位でソートされる",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "異常系：提案なし",
+              "input": "空の提案リスト",
+              "expected_output": "空の修正箇所リストが返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：大量の修正箇所",
+              "input": "100個以上の修正箇所",
+              "expected_output": "全修正箇所が生成され、ページネーションで表示される",
+              "test_type": "performance"
+            }
+          ]
+        },
+        {
+          "function_name": "単体テストと結合テストの設計",
+          "description": "モジュール提案と修正箇所に基づいて、単体テスト（各関数・クラス）と結合テスト（モジュール間インターフェース）の設計を行う。テストケース、テストデータ、期待結果、前提条件を定義し、カバレッジを計算。",
+          "input_spec": {
+            "module_proposals": "モジュール提案リスト (list[ModuleProposal])",
+            "functions": "関数リスト (list[Function])",
+            "classes": "クラスリスト (list[ClassDefinition])",
+            "dependencies": "依存関係グラフ (networkx.DiGraph)"
+          },
+          "process_flow": [
+            "1. テスト対象の特定：全関数・クラスをリストアップ",
+            "2. 単体テストケースの生成：各関数・メソッドに対して正常系、異常系、境界値のテストケースを生成",
+            "3. 境界値分析：パラメータの型、範囲、制約に基づいて境界値を特定",
+            "4. 異常系テストケースの生成：無効な入力、例外発生条件を特定",
+            "5. テストデータの設計：各テストケースに必要な入力データを定義",
+            "6. 期待結果の定義：各テストケースの期待される出力、戻り値、副作用を定義",
+            "7. 前提条件の定義：テスト実行前に必要な状態、データ、設定を定義",
+            "8. 結合テストケースの生成：モジュール間インターフェースに対してテストケースを生成",
+            "9. 依存関係グラフからテストシナリオを抽出：呼び出しチェーンをテストシナリオとして設計",
+            "10. カバレッジ分析：全関数・クラスに対するテストケースの存在をチェック、カバレッジ率を計算",
+            "11. 優先順位付け：重要度（core機能は高優先度）、複雑度（高複雑度は高優先度）に基づいて設定",
+            "12. TestDesignモデルとしてデータベースに保存",
+            "13. テスト設計リストとカバレッジレポートをUIに表示"
+          ],
+          "output_spec": {
+            "test_designs": "テスト設計リスト（TestDesignオブジェクトのリスト） (list[TestDesign])",
+            "coverage_report": "カバレッジレポート（モジュール別カバレッジ率、全体カバレッジ率、未テスト関数リスト） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "テストケース生成エラー",
+              "handling": "エラーをログに記録し、基本的なテストケース（正常系のみ）を生成。"
+            },
+            {
+              "error_type": "境界値分析エラー",
+              "handling": "境界値テストをスキップし、警告をログに記録。"
+            },
+            {
+              "error_type": "カバレッジ計算エラー",
+              "handling": "推定値（関数数ベース）で補完し、警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：単体テスト設計",
+              "input": "1つの関数（validate_data）",
+              "expected_output": "正常系、異常系、境界値のテストケースが生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：結合テスト設計",
+              "input": "2つのモジュール間のインターフェース",
+              "expected_output": "インターフェーステストケースが生成される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：カバレッジ計算",
+              "input": "10個の関数、8個にテストケース",
+              "expected_output": "カバレッジ80%が計算される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：テスト対象なし",
+              "input": "空の関数リスト",
+              "expected_output": "空のテスト設計リストが返される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：複雑な関数",
+              "input": "循環的複雑度20の関数",
+              "expected_output": "多数のテストケースが生成され、高優先度が設定される",
+              "test_type": "unit"
+            }
+          ]
+        },
+        {
+          "function_name": "フェーズごとの最適化プロンプト設計機能",
+          "description": "各フェーズ・サブフェーズに最適化されたプロンプトテンプレートを設計・管理。変数埋め込み、期待出力形式の定義、パラメータ調整をサポート。プロンプトのテスト実行とバージョン管理を提供。",
+          "input_spec": {
+            "phase": "対象フェーズ（phase1_sub1、phase1_sub2など） (string)",
+            "subphase": "対象サブフェーズ（code_analysis、clusteringなど） (string)",
+            "template_content": "プロンプトテンプレート本文（Jinja2形式） (string)",
+            "variables": "変数定義リスト（変数名、説明、デフォルト値、必須フラグ） (list[dict])",
+            "parameters": "AIパラメータ（max_tokens、temperature） (dict)"
+          },
+          "process_flow": [
+            "1. プロンプトテンプレートの作成・編集：Jinja2形式でテンプレートを記述",
+            "2. 変数の定義：テンプレート内で使用する変数を定義（名前、説明、デフォルト値、必須フラグ）",
+            "3. 期待出力形式の指定：json、markdown、textから選択",
+            "4. AIパラメータの設定：max_tokens（最大トークン数）、temperature（温度パラメータ）を設定",
+            "5. テンプレートの検証：Jinja2構文チェック、変数の一貫性チェック",
+            "6. テスト実行機能：変数に値を入力してプロンプトをレンダリング、Claude APIに送信してレスポンスを確認",
+            "7. レスポンスの評価：期待出力形式に合致しているか、内容が適切かを確認",
+            "8. バージョン管理：テンプレートの変更履歴を保存、過去バージョンへのロールバックをサポート",
+            "9. アクティブフラグの管理：現在使用中のテンプレートを指定",
+            "10. PromptTemplateモデルとしてデータベースに保存",
+            "11. テンプレートリストと編集UIを表示"
+          ],
+          "output_spec": {
+            "template": "保存されたプロンプトテンプレート（PromptTemplateオブジェクト） (PromptTemplate)",
+            "test_result": "テスト実行結果（送信プロンプト、レスポンス、評価） (dict)",
+            "validation_result": "検証結果（エラーリスト、警告リスト） (dict)"
+          },
+          "error_handling": [
+            {
+              "error_type": "テンプレート構文エラー",
+              "handling": "エラー箇所を特定し、詳細なエラーメッセージを表示。保存を拒否。"
+            },
+            {
+              "error_type": "変数不足エラー",
+              "handling": "テンプレート内で使用されているが定義されていない変数をリストアップし、警告を表示。"
+            },
+            {
+              "error_type": "テスト実行エラー",
+              "handling": "Claude APIエラーをログに記録し、エラー詳細を表示。テンプレートは保存可能。"
+            },
+            {
+              "error_type": "バージョン管理エラー",
+              "handling": "エラーをログに記録し、現在バージョンのみ保存。警告を表示。"
+            }
+          ],
+          "test_cases": [
+            {
+              "case_name": "正常系：新規テンプレート作成",
+              "input": "有効なJinja2テンプレート、変数定義、パラメータ",
+              "expected_output": "テンプレートが保存され、アクティブになる",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "正常系：テンプレートのテスト実行",
+              "input": "テンプレートと変数値",
+              "expected_output": "プロンプトがレンダリングされ、Claude APIからレスポンスが返される",
+              "test_type": "integration"
+            },
+            {
+              "case_name": "正常系：バージョン管理",
+              "input": "既存テンプレートの編集",
+              "expected_output": "新バージョンが作成され、旧バージョンが履歴に保存される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "異常系：構文エラー",
+              "input": "無効なJinja2構文",
+              "expected_output": "エラーメッセージが表示され、保存が拒否される",
+              "test_type": "unit"
+            },
+            {
+              "case_name": "境界値：大きなテンプレート",
+              "input": "10000文字以上のテンプレート",
+              "expected_output": "警告が表示されるが、保存は可能",
+              "test_type": "unit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "checksum": "5bcf5cb56960c88f21905d13109620a2cf4ada28e18b55eb4e67bd99d35ae898"
+}

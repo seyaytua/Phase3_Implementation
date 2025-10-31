@@ -1,0 +1,87 @@
+{
+  "source": "Phase2_Design",
+  "export_version": "1.0",
+  "exported_at": "2025-10-29 10:17:23",
+  "project": {
+    "project_id": "P2_P20251029_002",
+    "original_phase1_id": "P20251029_002",
+    "project_name": "テストプロジェクト",
+    "status": "設計完了",
+    "created_at": "2025-10-29 10:06:32",
+    "updated_at": "2025-10-29 10:17:13",
+    "phase1_data": {
+      "purpose": "Phase 1アプリの動作確認用プロジェクトです。各機能が正常に動作することを確認します。",
+      "confirmed_scope": [
+        {
+          "feature": "ユーザー登録機能",
+          "priority": "高"
+        },
+        {
+          "feature": "ログイン機能",
+          "priority": "高"
+        }
+      ],
+      "excluded_features": [
+        {
+          "feature": "パスワードリセット機能",
+          "reason": "Phase 1では実装せず、Phase 2以降で検討"
+        }
+      ],
+      "main_features": [
+        "ユーザー登録機能",
+        "ログイン機能"
+      ],
+      "user_scenarios": "ユーザーはログイン後、ダッシュボードを表示する",
+      "constraints": [
+        "WinPython環境で動作すること"
+      ],
+      "feasibility": "高"
+    },
+    "design_data": {
+      "tech_stack": {
+        "gui_framework": "PySide6 6.10.0",
+        "data_storage": "JSON",
+        "libraries": [
+          "json",
+          "datetime",
+          "hashlib"
+        ],
+        "selection_reasons": {
+          "PySide6": "",
+          "libraries": "",
+          "JSON": ""
+        }
+      },
+      "data_models": [
+        {
+          "model_name": "User",
+          "description": "",
+          "fields": [],
+          "sample_data": ""
+        }
+      ],
+      "screens": [
+        {
+          "screen_id": "SCR001",
+          "screen_name": "ログイン画面",
+          "screen_type": "Window",
+          "description": "",
+          "ui_elements": [],
+          "transitions": []
+        }
+      ],
+      "function_details": [
+        {
+          "function_name": "ユーザー登録機能",
+          "description": "",
+          "input_spec": {},
+          "process_flow": [],
+          "output_spec": {},
+          "error_handling": [],
+          "test_cases": []
+        }
+      ]
+    }
+  },
+  "checksum": "7b42ca48a5ff84d0fc29dc168736caccebc9a41fbf2ef352b1d978955efdcca2"
+}

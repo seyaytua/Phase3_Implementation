@@ -1,0 +1,320 @@
+{
+  "version": "1.0",
+  "projects": [
+    {
+      "project_id": "P2_P20251029_002",
+      "project_name": "テストプロジェクト",
+      "import_info": {
+        "source_file": "export_P2_P20251029_002_Phase2.json",
+        "import_date": "2025-10-29T18:29:11.880769",
+        "phase2_export_date": "2025-10-29 10:17:23",
+        "original_phase1_id": "P20251029_002",
+        "phase1_data": {
+          "purpose": "Phase 1アプリの動作確認用プロジェクトです。各機能が正常に動作することを確認します。",
+          "confirmed_scope": [
+            {
+              "feature": "ユーザー登録機能",
+              "priority": "高"
+            },
+            {
+              "feature": "ログイン機能",
+              "priority": "高"
+            }
+          ],
+          "excluded_features": [
+            {
+              "feature": "パスワードリセット機能",
+              "reason": "Phase 1では実装せず、Phase 2以降で検討"
+            }
+          ],
+          "main_features": [
+            "ユーザー登録機能",
+            "ログイン機能"
+          ],
+          "user_scenarios": "ユーザーはログイン後、ダッシュボードを表示する",
+          "constraints": [
+            "WinPython環境で動作すること"
+          ],
+          "feasibility": "高"
+        },
+        "design_data": {
+          "tech_stack": {
+            "gui_framework": "PySide6 6.10.0",
+            "data_storage": "JSON",
+            "libraries": [
+              "json",
+              "datetime",
+              "hashlib"
+            ],
+            "selection_reasons": {
+              "PySide6": "",
+              "libraries": "",
+              "JSON": ""
+            }
+          },
+          "data_models": [
+            {
+              "model_name": "User",
+              "description": "",
+              "fields": [],
+              "sample_data": ""
+            }
+          ],
+          "screens": [
+            {
+              "screen_id": "SCR001",
+              "screen_name": "ログイン画面",
+              "screen_type": "Window",
+              "description": "",
+              "ui_elements": [],
+              "transitions": []
+            }
+          ],
+          "function_details": [
+            {
+              "function_name": "ユーザー登録機能",
+              "description": "",
+              "input_spec": {},
+              "process_flow": [],
+              "output_spec": {},
+              "error_handling": [],
+              "test_cases": []
+            }
+          ]
+        },
+        "original_data": {
+          "source": "Phase2_Design",
+          "export_version": "1.0",
+          "exported_at": "2025-10-29 10:17:23",
+          "project": {
+            "project_id": "P2_P20251029_002",
+            "original_phase1_id": "P20251029_002",
+            "project_name": "テストプロジェクト",
+            "status": "設計完了",
+            "created_at": "2025-10-29 10:06:32",
+            "updated_at": "2025-10-29 10:17:13",
+            "phase1_data": {
+              "purpose": "Phase 1アプリの動作確認用プロジェクトです。各機能が正常に動作することを確認します。",
+              "confirmed_scope": [
+                {
+                  "feature": "ユーザー登録機能",
+                  "priority": "高"
+                },
+                {
+                  "feature": "ログイン機能",
+                  "priority": "高"
+                }
+              ],
+              "excluded_features": [
+                {
+                  "feature": "パスワードリセット機能",
+                  "reason": "Phase 1では実装せず、Phase 2以降で検討"
+                }
+              ],
+              "main_features": [
+                "ユーザー登録機能",
+                "ログイン機能"
+              ],
+              "user_scenarios": "ユーザーはログイン後、ダッシュボードを表示する",
+              "constraints": [
+                "WinPython環境で動作すること"
+              ],
+              "feasibility": "高"
+            },
+            "design_data": {
+              "tech_stack": {
+                "gui_framework": "PySide6 6.10.0",
+                "data_storage": "JSON",
+                "libraries": [
+                  "json",
+                  "datetime",
+                  "hashlib"
+                ],
+                "selection_reasons": {
+                  "PySide6": "",
+                  "libraries": "",
+                  "JSON": ""
+                }
+              },
+              "data_models": [
+                {
+                  "model_name": "User",
+                  "description": "",
+                  "fields": [],
+                  "sample_data": ""
+                }
+              ],
+              "screens": [
+                {
+                  "screen_id": "SCR001",
+                  "screen_name": "ログイン画面",
+                  "screen_type": "Window",
+                  "description": "",
+                  "ui_elements": [],
+                  "transitions": []
+                }
+              ],
+              "function_details": [
+                {
+                  "function_name": "ユーザー登録機能",
+                  "description": "",
+                  "input_spec": {},
+                  "process_flow": [],
+                  "output_spec": {},
+                  "error_handling": [],
+                  "test_cases": []
+                }
+              ]
+            }
+          },
+          "checksum": "7b42ca48a5ff84d0fc29dc168736caccebc9a41fbf2ef352b1d978955efdcca2"
+        }
+      },
+      "code_requests": [
+        {
+          "id": 1,
+          "function_name": "ユーザー登録機能の実装",
+          "details": "Phase 2で設計したユーザー登録機能を実装してください。\n\n【要件】\n- PySide6でGUI画面を作成\n- ユーザー名、メールアドレス、パスワードの入力フィールド\n- 入力バリデーション（空欄チェック、メール形式チェック）\n- JSONファイルへのデータ保存\n- 登録成功時のメッセージ表示\n\n【参考】\nPhase 2設計書の「ユーザー登録画面」仕様に準拠",
+          "request_date": "2025-10-29T18:32:59.676011",
+          "received_date": "2025-10-29T18:39:26.814845",
+          "status": "受領済み"
+        },
+        {
+          "id": 2,
+          "function_name": "Phase 2で設計したユーザー登録機能を実装してください。\n\n【要件】\n- PySide6でGUI画面を作成\n- ユーザー名、メールアドレス、パスワードの入力フィールド\n- 入力バリデーション（空欄チェック、メール形式チェック）\n- JSONファイルへのデータ保存\n- 登録成功時のメッセージ表示\n\n【参考】\nPhase 2設計書の「ユーザー登録画面」仕様に準拠",
+          "details": "Phase 2で設計したログイン機能を実装してください。\n\n【要件】\n- ユーザー名とパスワードの入力フィールド\n- JSONファイルからユーザーデータを読み込み\n- 認証処理（パスワードハッシュ比較）\n- ログイン成功/失敗のメッセージ表示\n- ダッシュボード画面への遷移\n\n【参考】\nPhase 2設計書の「ログイン画面」仕様に準拠",
+          "request_date": "2025-10-29T18:33:16.241232",
+          "received_date": "2025-10-29T18:39:31.472189",
+          "status": "受領済み"
+        },
+        {
+          "id": 3,
+          "function_name": "Userデータモデルの実装",
+          "details": "Phase 2で設計したUserデータモデルを実装してください。\n\n【要件】\n- Userクラスの作成\n- フィールド: user_id, username, email, password_hash, created_at\n- JSONシリアライズ/デシリアライズ機能\n- パスワードハッシュ化機能（hashlib使用）",
+          "request_date": "2025-10-29T18:33:29.227061",
+          "received_date": "2025-10-29T18:39:34.882081",
+          "status": "受領済み"
+        }
+      ],
+      "deployed_files": [
+        {
+          "id": 1,
+          "filename": "user_registration.py",
+          "filepath": "./ui/user_registration.py",
+          "deployed_date": "2025-10-29T18:34:13.506763",
+          "status": "OK",
+          "notes": "ユーザー登録画面のGUI実装完了。動作確認済み。"
+        },
+        {
+          "id": 2,
+          "filename": "login_window.py",
+          "filepath": "./ui/login_window.py",
+          "deployed_date": "2025-10-29T18:34:30.700030",
+          "status": "OK",
+          "notes": "ログイン画面の実装完了。認証処理も正常動作。"
+        },
+        {
+          "id": 3,
+          "filename": "user_model.py",
+          "filepath": "./models/user_model.py",
+          "deployed_date": "2025-10-29T18:34:56.158910",
+          "status": "OK",
+          "notes": "Userデータモデル実装完了。JSON保存・読込テスト済み。"
+        },
+        {
+          "id": 4,
+          "filename": "dashboard.py",
+          "filepath": "./ui/dashboard.py",
+          "deployed_date": "2025-10-29T18:35:26.816512",
+          "status": "NG",
+          "notes": "ダッシュボード画面でデータ表示がエラー。要修正。"
+        }
+      ],
+      "test_results": [
+        {
+          "id": 1,
+          "function_name": "ユーザー登録機能",
+          "test_date": "2025-10-29T18:35:44.182249",
+          "result": "OK",
+          "notes": " 正常系・異常系ともに正常動作。バリデーションも問題なし。"
+        },
+        {
+          "id": 2,
+          "function_name": " ログイン機能",
+          "test_date": "2025-10-29T18:36:00.930466",
+          "result": "OK",
+          "notes": "正常系・異常系ともに正常動作。バリデーションも問題なし。"
+        },
+        {
+          "id": 3,
+          "function_name": "ログイン機能",
+          "test_date": "2025-10-29T18:36:13.966701",
+          "result": "NG",
+          "notes": "存在しないユーザーでログイン時にエラー発生。"
+        }
+      ],
+      "bugs": [
+        {
+          "id": 1,
+          "title": "存在しないユーザーでログイン時にクラッシュ",
+          "description": " 登録されていないユーザー名でログインを試みると、KeyErrorが発生してアプリケーションがクラッシュする",
+          "severity": "高",
+          "found_date": "2025-10-29T18:36:31.483341",
+          "status": "解決済み",
+          "resolved_date": "2025-10-29T18:40:06.272709"
+        },
+        {
+          "id": 2,
+          "title": "パスワード入力フィールドが平文表示",
+          "description": "パスワード入力時に文字が見えてしまう。setEchoMode(QLineEdit.Password)の設定漏れ。",
+          "severity": "中",
+          "found_date": "2025-10-29T18:36:54.107375",
+          "status": "解決済み",
+          "resolved_date": "2025-10-29T18:40:15.590479"
+        },
+        {
+          "id": 3,
+          "title": "日本語入力時に文字化け",
+          "description": "ユーザー名に日本語を入力すると、JSON保存時に文字化けする。ensure_ascii=Falseの設定が必要。",
+          "severity": "中",
+          "found_date": "2025-10-29T18:37:12.372021",
+          "status": "解決済み",
+          "resolved_date": "2025-10-29T18:40:21.611856"
+        }
+      ],
+      "ui_ux_notes": [],
+      "issues": [
+        {
+          "id": 1,
+          "title": "PySide6のインポートエラー",
+          "description": "開発環境でPySide6がインポートできない問題が発生。WinPython環境の再確認が必要。",
+          "impact": "高",
+          "found_date": "2025-10-29T18:37:38.307133",
+          "status": "解決済み",
+          "resolution": "",
+          "resolved_date": "2025-10-29T18:40:32.725251"
+        },
+        {
+          "id": 2,
+          "title": "JSONファイルの保存場所",
+          "description": "ユーザーデータの保存場所が未定義だった。",
+          "impact": "中",
+          "found_date": "2025-10-29T18:38:30.157894",
+          "status": "解決済み",
+          "resolution": "解決策: ./data/users.json に保存することで合意。",
+          "resolved_date": "2025-10-29T18:38:47.461395"
+        }
+      ],
+      "export_history": [
+        {
+          "export_date": "2025-10-29T18:40:53.194154",
+          "filename": "export_P2_P20251029_002_Phase3.json",
+          "checksum": "b5e3a65cb88aed279ce3bae66f2af6571c7d972fa53e009252d33afb82a95f2a"
+        }
+      ],
+      "created_at": "2025-10-29T18:29:11.880769",
+      "updated_at": "2025-10-29T18:40:32.725251"
+    }
+  ],
+  "last_updated": "2025-10-29T18:40:53.194154"
+}
