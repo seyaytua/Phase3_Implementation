@@ -92,7 +92,21 @@ class RequestTab(QWidget):
         
         button_layout.addStretch()
         
-        # 🚀 JSON実行ボタン（新機能）
+        # 🎯 最小構成プロンプトボタン（新機能）
+        mvp_btn = QPushButton("🎯 最小構成")
+        mvp_btn.setToolTip("とりあえず起動させる最小構成（MVP）のプロンプトを生成")
+        mvp_btn.setStyleSheet("background-color: #9C27B0; color: white; font-weight: bold; padding: 5px 15px;")
+        mvp_btn.clicked.connect(self.generate_mvp_prompt)
+        button_layout.addWidget(mvp_btn)
+        
+        # 📦 次の依頼ボタン（新機能）
+        next_btn = QPushButton("📦 次の依頼")
+        next_btn.setToolTip("完了済みIDをスキップして次の未完了IDのプロンプトを生成")
+        next_btn.setStyleSheet("background-color: #3F51B5; color: white; font-weight: bold; padding: 5px 15px;")
+        next_btn.clicked.connect(self.generate_next_prompt)
+        button_layout.addWidget(next_btn)
+        
+        # 🚀 JSON実行ボタン
         json_exec_btn = QPushButton("🚀 JSON実行")
         json_exec_btn.setToolTip("Claude から受け取った JSON からファイル作成コマンドを生成")
         json_exec_btn.setStyleSheet("background-color: #FF9800; color: white; font-weight: bold; padding: 5px 15px;")
@@ -103,10 +117,10 @@ class RequestTab(QWidget):
         
         # テーブル
         self.table = QTableWidget()
-        self.table.setColumnCount(9)
+        self.table.setColumnCount(11)
         self.table.setHorizontalHeaderLabels([
             "ID", "機能名", "依頼内容", "依頼日", "受領日", "ステータス",
-            "依頼コピー", "プロンプト生成", "チェック"
+            "完了", "依頼コピー", "プロンプト生成", "チェック", "完了切替"
         ])
         
         header = self.table.horizontalHeader()
@@ -119,6 +133,8 @@ class RequestTab(QWidget):
         header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(8, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(9, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(10, QHeaderView.ResizeToContents)
         
         self.table.doubleClicked.connect(self.edit_request)
         
@@ -149,22 +165,38 @@ class RequestTab(QWidget):
                 status_item.setBackground(Qt.yellow)
             elif request['status'] == '受領済み':
                 status_item.setBackground(Qt.green)
+            elif request['status'] == '完了':
+                status_item.setBackground(Qt.lightGray)
             self.table.setItem(row, 5, status_item)
+            
+            # 完了チェックマーク
+            completed_item = QTableWidgetItem("✅" if request.get('status') == '完了' else "")
+            completed_item.setTextAlignment(Qt.AlignCenter)
+            if request.get('status') == '完了':
+                completed_item.setBackground(Qt.green)
+            self.table.setItem(row, 6, completed_item)
             
             # 依頼コピーボタン
             copy_btn = QPushButton("📋 コピー")
             copy_btn.clicked.connect(lambda checked, r=request: self.copy_request_details(r))
-            self.table.setCellWidget(row, 6, copy_btn)
+            self.table.setCellWidget(row, 7, copy_btn)
             
             # プロンプト生成ボタン
             prompt_btn = QPushButton("🤖 プロンプト")
             prompt_btn.clicked.connect(lambda checked, r=request: self.generate_implementation_prompt(r))
-            self.table.setCellWidget(row, 7, prompt_btn)
+            self.table.setCellWidget(row, 8, prompt_btn)
             
             # チェックボタン
             check_btn = QPushButton("✅ チェック")
             check_btn.clicked.connect(lambda checked, r=request: self.generate_check_prompt(r))
-            self.table.setCellWidget(row, 8, check_btn)
+            self.table.setCellWidget(row, 9, check_btn)
+            
+            # 完了切替ボタン
+            toggle_btn = QPushButton("完了" if request.get('status') != '完了' else "未完了")
+            toggle_btn.clicked.connect(lambda checked, r=request: self.toggle_completion(r))
+            if request.get('status') == '完了':
+                toggle_btn.setStyleSheet("background-color: #4CAF50; color: white;")
+            self.table.setCellWidget(row, 10, toggle_btn)
     
     def copy_request_details(self, request: Dict):
         """依頼内容をクリップボードにコピー"""
@@ -350,3 +382,108 @@ class RequestTab(QWidget):
         # ダイアログを開く
         dialog = CodeExecutionDialog(work_dir, shell_type, self)
         dialog.exec()
+    
+    def generate_mvp_prompt(self):
+        """最小構成（MVP）用プロンプトを生成"""
+        if not self.main_window.current_project:
+            QMessageBox.warning(self, "警告", "プロジェクトが選択されていません")
+            return
+        
+        # 作業ディレクトリチェック
+        work_dir = self.config_manager.get_work_directory()
+        if not work_dir:
+            QMessageBox.warning(
+                self,
+                "警告",
+                "作業ディレクトリが設定されていません。\n"
+                "メニューの「設定」から作業ディレクトリを設定してください。"
+            )
+            return
+        
+        # シェルタイプ取得
+        shell_type = self.config_manager.get_shell_type()
+        
+        # Phase 2データ取得
+        phase2_data = self.main_window.current_project.import_info.get('original_data', {}).get('project', {})
+        
+        # MVPプロンプト生成
+        prompt = self.prompt_gen.generate_mvp_prompt(
+            self.main_window.current_project.project_name,
+            phase2_data,
+            work_dir,
+            shell_type
+        )
+        
+        # クリップボードにコピー
+        clipboard = QApplication.clipboard()
+        clipboard.setText(prompt)
+        
+        # ダイアログで表示
+        dialog = PromptDisplayDialog(prompt, "🎯 最小構成（MVP）プロンプト", self)
+        dialog.exec()
+    
+    def generate_next_prompt(self):
+        """次の未完了依頼のプロンプトを生成"""
+        if not self.main_window.current_project:
+            QMessageBox.warning(self, "警告", "プロジェクトが選択されていません")
+            return
+        
+        # 作業ディレクトリチェック
+        work_dir = self.config_manager.get_work_directory()
+        if not work_dir:
+            QMessageBox.warning(
+                self,
+                "警告",
+                "作業ディレクトリが設定されていません。"
+            )
+            return
+        
+        # シェルタイプ取得
+        shell_type = self.config_manager.get_shell_type()
+        
+        # 全依頼を取得
+        all_requests = self.main_window.current_project.code_requests
+        
+        # 完了済みIDを取得（status が '完了' または '受領済み' のID）
+        completed_ids = [r['id'] for r in all_requests if r.get('status') in ['完了', '受領済み']]
+        
+        # Phase 2データ取得
+        phase2_data = self.main_window.current_project.import_info.get('original_data', {}).get('project', {})
+        
+        # 次の依頼プロンプト生成
+        prompt = self.prompt_gen.generate_next_request_prompt(
+            all_requests,
+            completed_ids,
+            phase2_data,
+            shell_type
+        )
+        
+        if prompt == "✅ 全ての依頼が完了しています！":
+            QMessageBox.information(
+                self,
+                "完了",
+                "✅ 全ての依頼が完了しています！\n\nPhase 4へエクスポートできます。"
+            )
+            return
+        
+        # クリップボードにコピー
+        clipboard = QApplication.clipboard()
+        clipboard.setText(prompt)
+        
+        # ダイアログで表示
+        dialog = PromptDisplayDialog(prompt, "📦 次の依頼プロンプト", self)
+        dialog.exec()
+    
+    def toggle_completion(self, request: Dict):
+        """依頼の完了ステータスを切り替え"""
+        if request.get('status') == '完了':
+            request['status'] = '受領済み'
+            message = "この依頼を未完了に戻しました"
+        else:
+            request['status'] = '完了'
+            message = "この依頼を完了にマークしました"
+        
+        self.main_window.save_current_project()
+        self.refresh()
+        
+        QMessageBox.information(self, "ステータス更新", message)
