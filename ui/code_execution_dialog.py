@@ -19,6 +19,7 @@ class CodeExecutionDialog(QDialog):
         self.shell_type = shell_type
         self.code_generator = CodeGenerator()
         self.generated_commands = {}
+        self.parsed_files = []  # パース済みファイル情報を保存
         
         self.setWindowTitle("🚀 JSON実行 - ファイル作成コマンド生成")
         self.setMinimumSize(900, 700)
@@ -56,11 +57,27 @@ class CodeExecutionDialog(QDialog):
         self.json_input.setMinimumHeight(150)
         layout.addWidget(self.json_input)
         
-        # 生成ボタン
+        # 生成ボタン群
+        button_row = QHBoxLayout()
+        
         generate_btn = QPushButton("🔧 コマンド生成")
         generate_btn.clicked.connect(self.generate_commands)
         generate_btn.setStyleSheet("background-color: #4CAF50; color: white; padding: 8px; font-weight: bold;")
-        layout.addWidget(generate_btn)
+        button_row.addWidget(generate_btn)
+        
+        ai_check_btn = QPushButton("✅ AI確認用プロンプト")
+        ai_check_btn.setToolTip("生成したコマンドをAIに確認してもらうプロンプトを生成")
+        ai_check_btn.clicked.connect(self.generate_ai_check_prompt)
+        ai_check_btn.setStyleSheet("background-color: #2196F3; color: white; padding: 8px; font-weight: bold;")
+        button_row.addWidget(ai_check_btn)
+        
+        single_file_btn = QPushButton("📄 1ファイルずつ生成")
+        single_file_btn.setToolTip("エラー時用：各ファイルを個別に生成")
+        single_file_btn.clicked.connect(self.generate_single_file_commands)
+        single_file_btn.setStyleSheet("background-color: #FF5722; color: white; padding: 8px; font-weight: bold;")
+        button_row.addWidget(single_file_btn)
+        
+        layout.addLayout(button_row)
         
         # タブウィジェット（各シェル用）
         self.tab_widget = QTabWidget()
@@ -153,6 +170,9 @@ class CodeExecutionDialog(QDialog):
                 QMessageBox.warning(self, "警告", "ファイルリストが空です")
                 return
             
+            # ファイル情報を保存（AI確認や1ファイルずつ生成で使用）
+            self.parsed_files = files
+            
             # 各シェル用のコマンドを生成
             self.generated_commands['powershell'] = self.code_generator.generate_powershell_commands(
                 self.work_dir, files
@@ -215,3 +235,235 @@ class CodeExecutionDialog(QDialog):
             f"✅ {shell_names[shell_type]} コマンドをクリップボードにコピーしました！\n\n"
             f"シェルに貼り付けて実行してください。"
         )
+    
+    def generate_ai_check_prompt(self):
+        """AI確認用プロンプトを生成"""
+        if not self.generated_commands:
+            QMessageBox.warning(
+                self,
+                "警告",
+                "先にコマンドを生成してください"
+            )
+            return
+        
+        # 現在のタブに応じたシェルタイプを取得
+        current_index = self.tab_widget.currentIndex()
+        shell_types = ['powershell', 'terminal', 'cmd']
+        current_shell = shell_types[current_index]
+        
+        shell_names = {
+            'powershell': 'PowerShell',
+            'terminal': 'Terminal (Mac/Linux)',
+            'cmd': 'Command Prompt (Windows)'
+        }
+        
+        current_command = self.generated_commands.get(current_shell, '')
+        
+        if not current_command:
+            QMessageBox.warning(self, "警告", "コマンドが空です")
+            return
+        
+        # AI確認用プロンプトを生成
+        ai_prompt = f"""# シェルコマンド構文チェック依頼
+
+## 依頼内容
+以下の**{shell_names[current_shell]}**コマンドの構文が正しいか確認してください。
+エラーがあれば修正し、正しいコマンドを提供してください。
+
+---
+
+## 確認対象コマンド
+
+```bash
+{current_command}
+```
+
+---
+
+## チェック項目
+
+1. **構文エラーの確認**
+   - クォート（'、"、`）の対応
+   - 改行文字の適切な処理
+   - エスケープシーケンスの確認
+   - EOF、'@などのヒアドキュメント終端の正確性
+
+2. **ファイル作成の確実性**
+   - ディレクトリ作成コマンドの確認
+   - ファイルパスの正確性
+   - 文字エンコーディング（UTF-8）の指定
+
+3. **実行可能性**
+   - コマンドが{shell_names[current_shell]}で正常に実行できるか
+   - 特殊文字の適切な処理
+
+---
+
+## 出力形式
+
+**エラーがない場合:**
+```
+✅ コマンドは正しいです。そのまま実行可能です。
+```
+
+**エラーがある場合:**
+```
+❌ 以下のエラーを発見しました：
+
+【エラー内容】
+- エラー1の説明
+- エラー2の説明
+
+【修正版コマンド】
+```bash
+修正されたコマンド全体
+```
+```
+
+---
+
+それでは、上記のコマンドを確認してください。
+"""
+        
+        # クリップボードにコピー
+        clipboard = QApplication.clipboard()
+        clipboard.setText(ai_prompt)
+        
+        # ダイアログで表示
+        from PySide6.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton, QLabel
+        
+        dialog = QDialog(self)
+        dialog.setWindowTitle("✅ AI確認用プロンプト")
+        dialog.setMinimumSize(800, 600)
+        
+        layout = QVBoxLayout(dialog)
+        
+        info = QLabel(
+            "以下のプロンプトをクリップボードにコピーしました。\n"
+            "Claude に貼り付けて、コマンドの構文を確認してもらってください。"
+        )
+        info.setWordWrap(True)
+        info.setStyleSheet("background-color: #fff3cd; padding: 10px; border-radius: 5px;")
+        layout.addWidget(info)
+        
+        text_edit = QTextEdit()
+        text_edit.setPlainText(ai_prompt)
+        text_edit.setReadOnly(True)
+        layout.addWidget(text_edit)
+        
+        close_btn = QPushButton("閉じる")
+        close_btn.clicked.connect(dialog.accept)
+        layout.addWidget(close_btn)
+        
+        dialog.exec()
+    
+    def generate_single_file_commands(self):
+        """1ファイルずつのコマンドを生成"""
+        if not self.parsed_files:
+            QMessageBox.warning(
+                self,
+                "警告",
+                "先にJSON入力からコマンドを生成してください"
+            )
+            return
+        
+        # 現在のタブに応じたシェルタイプを取得
+        current_index = self.tab_widget.currentIndex()
+        shell_types = ['powershell', 'terminal', 'cmd']
+        current_shell = shell_types[current_index]
+        
+        shell_names = {
+            'powershell': 'PowerShell',
+            'terminal': 'Terminal (Mac/Linux)',
+            'cmd': 'Command Prompt (Windows)'
+        }
+        
+        # 各ファイルごとにコマンドを生成
+        single_commands = []
+        
+        for i, file_info in enumerate(self.parsed_files, 1):
+            single_file_list = [file_info]
+            
+            if current_shell == 'powershell':
+                cmd = self.code_generator.generate_powershell_commands(self.work_dir, single_file_list)
+            elif current_shell == 'terminal':
+                cmd = self.code_generator.generate_terminal_commands(self.work_dir, single_file_list)
+            else:  # cmd
+                cmd = self.code_generator.generate_cmd_commands(self.work_dir, single_file_list)
+            
+            single_commands.append(f"# ========== ファイル {i}/{len(self.parsed_files)}: {file_info['filename']} ==========\n\n{cmd}\n")
+        
+        result_text = "\n".join(single_commands)
+        
+        # AI用プロンプトを生成
+        ai_prompt = f"""# 1ファイルずつ確実に作成する依頼
+
+## 状況
+一括でファイル作成を試みましたがエラーが発生しました。
+各ファイルを個別に確実に作成するため、1ファイルずつコマンドを提供します。
+
+---
+
+## {shell_names[current_shell]} コマンド（1ファイルずつ）
+
+{result_text}
+
+---
+
+## 実行手順の指示
+
+**以下の手順で、1ファイルずつ確実に作成してください：**
+
+1. **ファイル1のコマンドをコピー**してシェルに貼り付け → Enter で実行
+2. **エラーがないか確認** → エラーがあれば報告してください
+3. **成功したら次のファイル2へ進む**
+4. 全ファイルが成功するまで繰り返し
+
+---
+
+## エラーが発生した場合
+
+**以下の情報を提供してください：**
+- エラーメッセージ全文
+- どのファイルで発生したか（ファイル名）
+- エラーが発生した行番号（あれば）
+
+修正したコマンドを個別に提供します。
+
+---
+
+それでは、ファイル1から順番に実行を開始してください。
+各ファイルの実行結果を報告してください。
+"""
+        
+        # クリップボードにコピー
+        clipboard = QApplication.clipboard()
+        clipboard.setText(ai_prompt)
+        
+        # ダイアログで表示
+        from PySide6.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton, QLabel
+        
+        dialog = QDialog(self)
+        dialog.setWindowTitle("📄 1ファイルずつ生成")
+        dialog.setMinimumSize(900, 700)
+        
+        layout = QVBoxLayout(dialog)
+        
+        info = QLabel(
+            f"✅ {len(self.parsed_files)} 個のファイルを個別に作成するプロンプトを生成しました。\n"
+            "クリップボードにコピー済みです。Claude に貼り付けて指示に従ってください。"
+        )
+        info.setWordWrap(True)
+        info.setStyleSheet("background-color: #d4edda; padding: 10px; border-radius: 5px;")
+        layout.addWidget(info)
+        
+        text_edit = QTextEdit()
+        text_edit.setPlainText(ai_prompt)
+        text_edit.setReadOnly(True)
+        layout.addWidget(text_edit)
+        
+        close_btn = QPushButton("閉じる")
+        close_btn.clicked.connect(dialog.accept)
+        layout.addWidget(close_btn)
+        
+        dialog.exec()
